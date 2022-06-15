@@ -4,13 +4,14 @@ import {
   Text,
   Image,
   ScrollView,
-  Button,
+  // Button,
   TouchableOpacity,
   TextInput,
 } from 'react-native';
+import {Button, Select} from 'native-base';
 
 import style from './styles';
-import Footer from '../../components/footer';
+import Footer from '../../components/Footer';
 import Navbar from '../../components/navbar';
 
 export default function HomeScreen(props) {
@@ -102,7 +103,9 @@ export default function HomeScreen(props) {
               />
               <Text style={{marginTop: 10}}>{item.name}</Text>
               <Text style={{marginBottom: 20}}>{item.genre}</Text>
-              <Button title="Details" />
+              <Button variant="outline" size="sm" colorScheme="secondary">
+                Details
+              </Button>
             </View>
           ))}
           {/* <View style={style.card}>
@@ -180,7 +183,9 @@ export default function HomeScreen(props) {
           updates via email .
         </Text>
       </View>
-      <Footer />
+      <View style={style.join}>
+        <Footer {...props} />
+      </View>
     </ScrollView>
   );
 }

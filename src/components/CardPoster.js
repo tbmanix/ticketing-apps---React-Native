@@ -9,16 +9,19 @@ import {
 } from 'react-native';
 
 export default function CardPoster(props) {
-  console.log(props);
+  // console.log(props);
   return (
     <View style={style.card}>
       <Image
         source={require('../assets/img/poster.png')}
         style={style.poster}
       />
-      <Text style={{marginTop: 10}}>{props.poster.name}</Text>
-      <Text style={{marginBottom: 20}}>{props.poster.genre}</Text>
-      <Button title="Details" />
+      <Text style={{marginTop: 10}}>{props.data.name}</Text>
+      <Text style={{marginBottom: 20}}>{props.data.genre}</Text>
+      <Button
+        title="Details"
+        onPress={() => props.navigation.navigate('MovieDetail')}
+      />
     </View>
   );
 }

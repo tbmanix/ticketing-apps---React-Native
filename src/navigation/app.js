@@ -8,8 +8,11 @@ const Drawer = createDrawerNavigator();
 
 import HomeScreen from '../screens/Home';
 import ViewAllScreen from '../screens/ViewAll';
+import MovieDetailScreen from '../screens/MovieDetail';
 import Header from '../components/Header';
 import DrawerContent from '../components/DrawerContent';
+import SeatScreen from '../screens/Order';
+import PaymentScreen from '../screens/Payment';
 
 function HomeNavigator() {
   return (
@@ -22,6 +25,21 @@ function HomeNavigator() {
       <Stack.Screen
         component={ViewAllScreen}
         name="ViewAll"
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        component={MovieDetailScreen}
+        name="MovieDetail"
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        component={SeatScreen}
+        name="Seat"
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        component={PaymentScreen}
+        name="Payment"
         options={{headerShown: false}}
       />
     </Stack.Navigator>

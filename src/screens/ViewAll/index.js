@@ -1,10 +1,19 @@
 import React from 'react';
-import {Button, ScrollView, Text, TouchableOpacity, View} from 'react-native';
+import {ScrollView, Text, TouchableOpacity, View} from 'react-native';
+import {
+  Button,
+  Select,
+  Box,
+  CheckIcon,
+  Input,
+  Icon,
+  Ionicons,
+} from 'native-base';
 
 import style from './styles';
 import CardPoster from '../../components/CardPoster';
 
-export default function ViewAllScreen() {
+export default function ViewAllScreen(props) {
   const poster = [
     {
       img: '../../assets/img/poster.png',
@@ -29,15 +38,55 @@ export default function ViewAllScreen() {
     ,
   ];
   const page = [1, 2, 3, 4, 5];
+  const month = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'Desember',
+  ];
+  let [service, setService] = React.useState('');
+  console.log(service);
   return (
     <ScrollView>
       <View>
         <View style={style.listMovie}>
-          <Text>T</Text>
+          <Select
+            selectedValue={service}
+            accessibilityLabel="Sort"
+            width={100}
+            placeholder="Sort"
+            _selectedItem={{
+              bg: 'teal.600',
+              endIcon: <CheckIcon size={5} />,
+            }}
+            onValueChange={itemValue => setService(itemValue)}>
+            <Select.Item label="A to Z" value="A" />
+            <Select.Item label="Z to A" value="B" />
+            <Select.Item label="Newest" value="C" />
+          </Select>
+          {/* <Input placeholder="Input Search..." size="xs" /> */}
+          <Input placeholder="Search" w="50%" size="sm" />
         </View>
+        <ScrollView horizontal={true}>
+          {month.map(item => (
+            <TouchableOpacity style={style.btnMonth} key={item}>
+              <Text>{item}</Text>
+            </TouchableOpacity>
+          ))}
+        </ScrollView>
         <View style={style.containerPoster}>
           {poster.map((item, index) => (
-            <CardPoster poster={item} key={index} />
+            <View key={index}>
+              <CardPoster {...props} data={item} />
+            </View>
           ))}
         </View>
         <View style={style.pagination}>

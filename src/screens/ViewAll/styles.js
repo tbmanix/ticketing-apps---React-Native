@@ -5,6 +5,20 @@ import React from 'react';
 export default StyleSheet.create({
   listMovie: {
     padding: 10,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+  },
+  btnMonth: {
+    margin: 10,
+    borderRadius: 5,
+    borderWidth: 1,
+    width: 80,
+    padding: 4,
+    justifyContent: 'center',
+    alignItems: 'center',
+    // backgroundColor: 'blue',
+    borderColor: '#5f2eea',
   },
   containerPoster: {
     // padding: 10,
@@ -12,7 +26,7 @@ export default StyleSheet.create({
     // backgroundColor: 'blue',
     flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent: 'center',
+    justifyContent: 'space-around',
   },
   pagination: {
     flexDirection: 'row',

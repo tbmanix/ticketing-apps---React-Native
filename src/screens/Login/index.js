@@ -5,10 +5,10 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
-  Button,
   TextInput,
   Image,
 } from 'react-native';
+
 import axios from '../../utils/axios';
 
 import styles from './styles';
