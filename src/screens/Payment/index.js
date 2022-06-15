@@ -42,12 +42,18 @@ export default function PaymentScreen(props) {
         paddingBottom={5}
         paddingTop={3}
         roundedBottom={20}>
-        <Text>Total Payment</Text>
-        <Text>$30.00</Text>
+        <Text fontSize="md" color="gray.400">
+          Total Payment
+        </Text>
+        <Text fontSize="lg" color="black">
+          $30.00
+        </Text>
       </Box>
-      <Box marginX={3}>
-        <Text>Payment Method</Text>
-        <Box bgColor="white" rounded="xl" p={8}>
+      <Box marginX={3} marginTop={5}>
+        <Text fontSize="xl" fontWeight="semibold">
+          Payment Method
+        </Text>
+        <Box bgColor="white" rounded="xl" p={8} marginTop={3}>
           <Center>
             <HStack space={3}>
               <VStack flex={1} space={2}>
@@ -105,14 +111,18 @@ export default function PaymentScreen(props) {
                 </Button>
               </VStack>
             </HStack>
-            <Text>Or</Text>
-            <Text>Pay via Cash. See how it Work</Text>
+            <Text marginY={5}>Or</Text>
+            <Text>
+              Pay via Cash. <Text color="#5f2eea">See how it work.</Text>
+            </Text>
           </Center>
         </Box>
       </Box>
-      <Box marginX={3}>
-        <Text>Personal Info</Text>
-        <Box bgColor="white" rounded="xl" p={8}>
+      <Box marginX={3} marginTop={5}>
+        <Text fontSize="xl" fontWeight="semibold">
+          Personal Info
+        </Text>
+        <Box bgColor="white" rounded="xl" p={8} marginTop={3}>
           <FormControl>
             <FormControl.Label>Full Name</FormControl.Label>
             <Input placeholder="Jonas El Rodriguez" />
@@ -144,6 +154,9 @@ export default function PaymentScreen(props) {
             </Alert>
           </FormControl>
         </Box>
+        <Button bgColor="#5f2eea" rounded="10" marginY={6}>
+          Pay your order
+        </Button>
       </Box>
       <Box>
         <Footer {...props} />

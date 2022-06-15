@@ -57,9 +57,11 @@ export default function ViewAllScreen(props) {
   console.log(service);
   return (
     <ScrollView>
-      <View>
+      <View style={{paddingBottom: 30}}>
+        <Text style={{padding: 10, fontSize: 18}}>List Movie</Text>
         <View style={style.listMovie}>
           <Select
+            bgColor="white"
             selectedValue={service}
             accessibilityLabel="Sort"
             width={100}
@@ -74,7 +76,7 @@ export default function ViewAllScreen(props) {
             <Select.Item label="Newest" value="C" />
           </Select>
           {/* <Input placeholder="Input Search..." size="xs" /> */}
-          <Input placeholder="Search" w="50%" size="sm" />
+          <Input placeholder="Search" w="50%" size="sm" bgColor="white" />
         </View>
         <ScrollView horizontal={true}>
           {month.map(item => (

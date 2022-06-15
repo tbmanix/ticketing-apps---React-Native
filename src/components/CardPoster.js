@@ -1,12 +1,6 @@
+import {Button} from 'native-base';
 import React from 'react';
-import {
-  Text,
-  TouchableOpacity,
-  View,
-  Image,
-  StyleSheet,
-  Button,
-} from 'react-native';
+import {Text, TouchableOpacity, View, Image, StyleSheet} from 'react-native';
 
 export default function CardPoster(props) {
   // console.log(props);
@@ -16,12 +10,18 @@ export default function CardPoster(props) {
         source={require('../assets/img/poster.png')}
         style={style.poster}
       />
-      <Text style={{marginTop: 10}}>{props.data.name}</Text>
-      <Text style={{marginBottom: 20}}>{props.data.genre}</Text>
+      <Text style={style.textTitle}>{props.data.name}</Text>
+      <Text style={style.textGenre}>{props.data.genre}</Text>
       <Button
-        title="Details"
-        onPress={() => props.navigation.navigate('MovieDetail')}
-      />
+        variant="outline"
+        size="sm"
+        _text={{
+          color: 'purple.600',
+        }}
+        borderColor="purple.600"
+        onPress={() => props.navigation.navigate('MovieDetail')}>
+        Details
+      </Button>
     </View>
   );
 }
@@ -44,5 +44,18 @@ const style = StyleSheet.create({
   poster: {
     width: 140,
     borderRadius: 10,
+  },
+  textTitle: {
+    // fontSize: '20',
+    fontWeight: '600',
+    fontSize: 18,
+    color: 'black',
+    letterSpacing: 1,
+    marginVertical: 10,
+  },
+  textGenre: {
+    fontSize: 12,
+    marginBottom: 20,
+    textAlign: 'center',
   },
 });

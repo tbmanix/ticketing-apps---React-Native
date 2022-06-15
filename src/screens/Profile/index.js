@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {TabView, SceneMap} from 'react-native-tab-view';
+import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
 import {
   Box,
   Button,
@@ -11,16 +11,21 @@ import {
   Input,
   InputGroup,
   InputLeftAddon,
+  Divider,
 } from 'native-base';
 import {View, useWindowDimensions, ScrollView} from 'react-native';
+
 import Footer from '../../components/Footer';
+import styles from './styles';
 
 const FirstRoute = props => (
-  <ScrollView>
-    <Box bgColor="white" rounded="20" marginX={3} p="5">
-      <Text>INFO</Text>
+  <ScrollView style={styles.container}>
+    <Box bgColor="white" rounded="10" marginX={3} p="5" marginTop={5}>
+      <Text fontSize="md" fontWeight="light">
+        INFO
+      </Text>
 
-      <VStack space="5" alignItems="center" marginY="5">
+      <VStack space="4" alignItems="center" marginY="5">
         <Image
           bgColor="black"
           source={require('../../assets/img/Ava.png')}
@@ -29,17 +34,25 @@ const FirstRoute = props => (
           resizeMode="cover"
           // width={30}
         />
-        <Text>Jonas El Rodriguez</Text>
-        <Text>Moviegoers</Text>
-        <Box borderWidth="0.5" borderBottomColor="black" w="90%" />
-        <Button width="50%">Logout</Button>
+        <Text fontSize="2xl" fontWeight="bold">
+          Jonas El Rodriguez
+        </Text>
+        <Text fontSize="md">Moviegoers</Text>
+        <Divider />
+        <Button width="50%" bgColor="#5f2eea">
+          Logout
+        </Button>
       </VStack>
     </Box>
-    <Box marginX={3}>
-      <Text>Account Settings</Text>
-      <Box bgColor="white" rounded="20" p="5">
-        <Text>Details Information</Text>
-        <Box borderWidth="0.5" borderBottomColor="black" w="90%" />
+    <Box marginX={3} marginTop={5}>
+      <Text fontSize="xl" fontWeight="semibold">
+        Account Settings
+      </Text>
+      <Box bgColor="white" rounded="10" p="5">
+        <Text fontSize="md" fontWeight="light">
+          Details Information
+        </Text>
+        <Divider mt={2} />
         <VStack space={3} mt="5">
           <FormControl>
             <FormControl.Label>Full Name</FormControl.Label>
@@ -56,14 +69,22 @@ const FirstRoute = props => (
               <Input w="85%" placeholder="876543234567" />
             </InputGroup>
           </FormControl>
-          <Button mt="2" colorScheme="indigo" rounded="7">
-            Update Changes
-          </Button>
         </VStack>
       </Box>
+      <Button
+        mt="5"
+        colorScheme="indigo"
+        rounded="7"
+        width="80%"
+        alignSelf="center">
+        Update Changes
+      </Button>
     </Box>
-    <Box bgColor="white" rounded="20" marginX={3} p="5">
-      <Text>Account and Privacy</Text>
+    <Box bgColor="white" rounded="10" marginX={3} p="5" marginTop={5}>
+      <Text fontSize="md" fontWeight="light">
+        Account & Privacy
+      </Text>
+      <Divider mt={2} />
       <VStack space={3} mt="5">
         <FormControl>
           <FormControl.Label>New Password</FormControl.Label>
@@ -73,54 +94,68 @@ const FirstRoute = props => (
           <FormControl.Label>Confirm</FormControl.Label>
           <Input placeholder="input your new password" type="password" />
         </FormControl>
-        <Button mt="2" colorScheme="indigo" rounded="7">
+        {/* <Button mt="2" colorScheme="indigo" rounded="7">
           Update Changes
-        </Button>
+        </Button> */}
       </VStack>
     </Box>
-    <Box>
+    <Button
+      mt="5"
+      colorScheme="indigo"
+      rounded="7"
+      width="80%"
+      alignSelf="center">
+      Update Changes
+    </Button>
+    <Box marginTop="10">
       <Footer {...props} />
     </Box>
   </ScrollView>
 );
 
 const SecondRoute = props => (
-  <ScrollView>
-    <Box bgColor="white" rounded="20" marginX={3} p="5">
-      <VStack space={3} mt="5">
-        <Image
-          source={require('../../assets/img/ebvsponsor.png')}
-          width="90"
-          resizeMode="contain"
-          alt="img_sponsor"
-        />
-        <Text>Tuesday, 07 July 2020 - 04:30pm</Text>
-        <Text>Spider-Man: Homecoming</Text>
-        <Box borderWidth="0.5" borderBottomColor="black" />
-        <Button onPress={() => props.navigation.navigate('TicketResult')}>
-          Ticket in active
-        </Button>
-      </VStack>
-    </Box>
-    <Box bgColor="white" rounded="20" marginX={3} p="5">
-      <VStack space={3} mt="5">
-        <Image
-          source={require('../../assets/img/ebvsponsor.png')}
-          width="90"
-          resizeMode="contain"
-          alt="img_sponsor"
-        />
-        <Text>Tuesday, 07 July 2020 - 04:30pm</Text>
-        <Text>Spider-Man: Homecoming</Text>
-        <Box borderWidth="0.5" borderBottomColor="black" />
-        <Button
-          colorScheme="gray"
-          onPress={() => props.navigation.navigate('TicketResult')}>
-          Ticket Used
-        </Button>
-      </VStack>
-    </Box>
-    <Box>
+  <ScrollView style={styles.container}>
+    <VStack space={5}>
+      <Box bgColor="white" rounded="10" marginX={3} p="5" marginTop={5}>
+        <VStack space={3} mt="5">
+          <Image
+            source={require('../../assets/img/ebvsponsor.png')}
+            width="90"
+            resizeMode="contain"
+            alt="img_sponsor"
+          />
+          <Text fontSize="sm" color="gray.400">
+            Tuesday, 07 July 2020 - 04:30pm
+          </Text>
+          <Text fontSize="md" color="black" fontWeight="semibold">
+            Spider-Man: Homecoming
+          </Text>
+          <Divider />
+          <Button onPress={() => props.navigation.navigate('TicketResult')}>
+            Ticket in active
+          </Button>
+        </VStack>
+      </Box>
+      <Box bgColor="white" rounded="10" marginX={3} p="5">
+        <VStack space={3} mt="5">
+          <Image
+            source={require('../../assets/img/ebvsponsor.png')}
+            width="90"
+            resizeMode="contain"
+            alt="img_sponsor"
+          />
+          <Text>Tuesday, 07 July 2020 - 04:30pm</Text>
+          <Text>Spider-Man: Homecoming</Text>
+          <Divider />
+          <Button
+            colorScheme="gray"
+            onPress={() => props.navigation.navigate('TicketResult')}>
+            Ticket Used
+          </Button>
+        </VStack>
+      </Box>
+    </VStack>
+    <Box marginTop="10">
       <Footer {...props} />
     </Box>
   </ScrollView>
@@ -139,6 +174,16 @@ export default function ProfileScreen(props) {
     first: () => <FirstRoute {...props} />,
     second: () => <SecondRoute {...props} />,
   });
+  const renderTabBar = props => (
+    <TabBar
+      {...props}
+      renderLabel={({route, color}) => (
+        <Text style={{color: 'black', margin: 8}}>{route.title}</Text>
+      )}
+      indicatorStyle={{backgroundColor: '#5f2eea'}}
+      style={{backgroundColor: 'white'}}
+    />
+  );
 
   return (
     // <ScrollView>
@@ -151,6 +196,7 @@ export default function ProfileScreen(props) {
       navigationState={{index, routes}}
       renderScene={renderScene}
       onIndexChange={setIndex}
+      renderTabBar={renderTabBar}
       initialLayout={{width: layout.width}}
     />
   );

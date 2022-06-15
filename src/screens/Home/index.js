@@ -87,11 +87,12 @@ export default function HomeScreen(props) {
             flexDirection: 'row',
             justifyContent: 'space-between',
           }}>
-          <Text>Now Showing</Text>
+          <Text style={style.textMedium}>Now Showing</Text>
           {/* <Text onPress={props.navigation.navigate('ViewAll')}>View All</Text> */}
           <TouchableOpacity
+            style={style.textLink}
             onPress={() => props.navigation.navigate('ViewAll')}>
-            <Text>View All</Text>
+            <Text style={style.textNormalPurple}>View All</Text>
           </TouchableOpacity>
         </View>
         <ScrollView horizontal={true}>
@@ -101,9 +102,15 @@ export default function HomeScreen(props) {
                 source={require('../../assets/img/poster.png')}
                 style={style.poster}
               />
-              <Text style={{marginTop: 10}}>{item.name}</Text>
-              <Text style={{marginBottom: 20}}>{item.genre}</Text>
-              <Button variant="outline" size="sm" colorScheme="secondary">
+              <Text style={style.textTitle}>{item.name}</Text>
+              <Text style={style.textGenre}>{item.genre}</Text>
+              <Button
+                variant="outline"
+                size="sm"
+                _text={{
+                  color: 'purple.600',
+                }}
+                borderColor="purple.600">
                 Details
               </Button>
             </View>
@@ -125,8 +132,14 @@ export default function HomeScreen(props) {
             flexDirection: 'row',
             justifyContent: 'space-between',
           }}>
-          <Text>Upcoming Movies</Text>
-          <Text>View All</Text>
+          <Text style={style.textMedium}>Upcoming Movies</Text>
+          <TouchableOpacity style={style.textLink}>
+            <Text
+              style={style.textNormalPurple}
+              onPress={() => props.navigation.navigate('ViewAll')}>
+              View All
+            </Text>
+          </TouchableOpacity>
         </View>
         <ScrollView horizontal={true}>
           {month.map(item => (
@@ -142,9 +155,17 @@ export default function HomeScreen(props) {
                 source={require('../../assets/img/poster.png')}
                 style={style.poster}
               />
-              <Text style={{marginTop: 10}}>{item.name}</Text>
-              <Text style={{marginBottom: 20}}>{item.genre}</Text>
-              <Button title="Details" />
+              <Text style={style.textTitle}>{item.name}</Text>
+              <Text style={style.textGenre}>{item.genre}</Text>
+              <Button
+                variant="outline"
+                size="sm"
+                _text={{
+                  color: 'purple.600',
+                }}
+                borderColor="purple.600">
+                Details
+              </Button>
             </View>
           ))}
         </ScrollView>

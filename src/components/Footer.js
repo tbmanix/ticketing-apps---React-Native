@@ -7,40 +7,40 @@ import {TouchableOpacity} from 'react-native';
 export default function Footer(props) {
   return (
     <VStack
-      space={5}
-      marginTop="10"
+      space={6}
+      // marginTop="10"
       bgColor="white"
       paddingTop="5"
       paddingX={3}>
       <Box>
         <Image source={require('../assets/img/Vector.png')} alt="img_logo" />
-        <Text>
+        <Text mt={3}>
           Stop waiting in line. Buy tickets conveniently, watch movies quietly.
         </Text>
       </Box>
       <Box>
-        <Text>Explore</Text>
+        <Text fontSize="md" fontWeight="semibold" mb={2}>
+          Explore
+        </Text>
         <HStack>
           <Box flex={1}>
             <TouchableOpacity onPress={() => props.navigation.navigate('Home')}>
-              <Text>Home</Text>
+              <Text fontSize="md">Home</Text>
             </TouchableOpacity>
           </Box>
           <Box flex={2}>
             <TouchableOpacity
               onPress={() => props.navigation.navigate('ViewAll')}>
-              <Text>List movie</Text>
+              <Text fontSize="md">List movie</Text>
             </TouchableOpacity>
           </Box>
         </HStack>
       </Box>
       <Box>
-        <Text>Our Sponsor</Text>
-        <HStack
-          space={3}
-          borderColor="black"
-          borderWidth="1"
-          alignItems="flex-end">
+        <Text fontSize="md" fontWeight="semibold" mb={2}>
+          Our Sponsor
+        </Text>
+        <HStack space={3} alignItems="flex-end">
           <Image
             flex={1}
             source={require('../assets/img/ebvsponsor.png')}
@@ -62,7 +62,9 @@ export default function Footer(props) {
         </HStack>
       </Box>
       <Box>
-        <Text>Our Sponsor</Text>
+        <Text fontSize="md" fontWeight="semibold" mb={3}>
+          Social Media
+        </Text>
         <HStack space={10}>
           <Icon name="facebook" size={25} />
           <Icon name="instagram" size={25} />
@@ -70,7 +72,7 @@ export default function Footer(props) {
           <Icon name="youtube" size={25} />
         </HStack>
       </Box>
-      <Box>
+      <Box mb={3}>
         <Text>
           <IconAnt name="copyright" /> 2020 Tickitz. All Right Reserved
         </Text>

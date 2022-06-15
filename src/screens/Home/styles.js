@@ -9,23 +9,50 @@ export default StyleSheet.create({
   bannerText: {
     padding: 10,
     height: 130,
-    // backgroundColor: 'blue',
+    backgroundColor: 'white',
     justifyContent: 'center',
   },
   bannerImage: {
     flexDirection: 'row',
-    // backgroundColor: 'blue',
+    backgroundColor: 'white',
     justifyContent: 'space-between',
-    height: 450,
+    height: 500,
     padding: 20,
-    marginVertical: 30,
+    paddingTop: 20,
+    // marginVertical: 30,
   },
-
   // nowShowing
   nowShowing: {
     backgroundColor: '#d6d8e7',
     padding: 10,
   },
+
+  textMedium: {
+    fontSize: 20,
+    color: '#5f2eea',
+    fontWeight: '600',
+  },
+  textNormalPurple: {
+    // fontSize: 20,
+    color: '#5f2eea',
+    fontWeight: '600',
+  },
+  textLink: {
+    justifyContent: 'center',
+  },
+  textTitle: {
+    // fontSize: '20',
+    fontWeight: '600',
+    fontSize: 18,
+    color: 'black',
+    letterSpacing: 1,
+    marginVertical: 10,
+  },
+  textGenre: {
+    fontSize: 12,
+    marginBottom: 20,
+  },
+
   card: {
     padding: 10,
     backgroundColor: 'white',
@@ -48,6 +75,7 @@ export default StyleSheet.create({
   // upComing
   upComing: {
     padding: 10,
+    backgroundColor: 'white',
   },
   btnMonth: {
     margin: 10,
@@ -59,11 +87,14 @@ export default StyleSheet.create({
     alignItems: 'center',
     // backgroundColor: 'blue',
     borderColor: '#5f2eea',
+    marginTop: 20,
   },
 
   // Join
   join: {
     padding: 10,
     alignItems: 'center',
+    backgroundColor: 'white',
+    height: 400,
   },
 });

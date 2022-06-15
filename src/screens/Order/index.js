@@ -67,8 +67,10 @@ export default function SeatScreen(props) {
 
   return (
     <ScrollView>
-      <Box marginX={3}>
-        <Text>Choose Your Seat</Text>
+      <Box marginX={3} marginY={5}>
+        <Text fontSize="xl" fontWeight="semibold">
+          Choose Your Seat
+        </Text>
         <View style={styles.containerSeat}>
           <FlatList
             data={listSeat}
@@ -83,42 +85,64 @@ export default function SeatScreen(props) {
             )}
           />
         </View>
-        <Button onPress={handleBookingSeat}>Booking</Button>
-        <Button onPress={handleResetSeat}>Reset</Button>
+        {/* <Button onPress={handleBookingSeat}>Booking</Button>
+        <Button onPress={handleResetSeat}>Reset</Button> */}
       </Box>
-      <Box marginX={3}>
-        <Text>Order Info</Text>
-        <Box rounded="xl" bg="white" p={4}>
+      <Box marginX={3} marginY={5}>
+        <Text fontSize="xl" fontWeight="semibold">
+          Order Info
+        </Text>
+        <Box rounded="xl" bg="white" p={4} marginY={3}>
           <Center>
             <Image
-              source={require('../../assets/img/ebvsponsor.png')}
+              source={require('../../assets/img/cineonesponsor.png')}
               alt="img_Sponsor"
-              w={20}
+              w="150"
               resizeMode="contain"
             />
-            <Text>Cineone21 Cinema</Text>
-            <Text>Spider-Man: HomeComing</Text>
+            <Text fontSize="xl">Cineone21 Cinema</Text>
+            <Text fontSize="md">Spider-Man: HomeComing</Text>
           </Center>
-          <HStack justifyContent="space-between">
-            <Text>Tuesday, 07 July 2020</Text>
-            <Text>02:00pm</Text>
-          </HStack>
-          <HStack justifyContent="space-between">
-            <Text>One ticket price</Text>
-            <Text>$10</Text>
-          </HStack>
-          <HStack justifyContent="space-between">
-            <Text>Seat Choosed</Text>
-            <Text>C4, C5, C6</Text>
-          </HStack>
-          <Box borderWidth={0.2} marginY={5} />
-          <HStack justifyContent="space-between">
-            <Text>Total Payment</Text>
-            <Text>$30</Text>
-          </HStack>
+          <VStack space={2} mt="4">
+            <HStack justifyContent="space-between">
+              <Text fontSize="sm" color="gray.400">
+                Tuesday, 07 July 2020
+              </Text>
+              <Text fontSize="sm" color="black">
+                02:00pm
+              </Text>
+            </HStack>
+            <HStack justifyContent="space-between">
+              <Text fontSize="sm" color="gray.400">
+                One ticket price
+              </Text>
+              <Text fontSize="sm" color="black">
+                $10
+              </Text>
+            </HStack>
+            <HStack justifyContent="space-between">
+              <Text fontSize="sm" color="gray.400">
+                Seat Choosed
+              </Text>
+              <Text fontSize="sm" color="black">
+                C4, C5, C6
+              </Text>
+            </HStack>
+            <Box borderWidth={0.2} marginY={3} />
+            <HStack justifyContent="space-between">
+              <Text fontSize="xl" color="black">
+                Total Payment
+              </Text>
+              <Text fontSize="2xl" color="purple.600" fontWeight="semibold">
+                $30
+              </Text>
+            </HStack>
+          </VStack>
         </Box>
         <Button
           rounded={10}
+          bgColor="#5f2eea"
+          marginY={6}
           onPress={() => props.navigation.navigate('Payment')}>
           Checkout Now
         </Button>
@@ -138,5 +162,7 @@ const styles = StyleSheet.create({
   containerSeat: {
     backgroundColor: 'white',
     borderRadius: 8,
+    marginTop: 10,
+    padding: 10,
   },
 });

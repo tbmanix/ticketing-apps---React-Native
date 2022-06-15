@@ -15,6 +15,7 @@ import {
   HStack,
   TextArea,
   VStack,
+  Divider,
 } from 'native-base';
 import SelectDropdown from 'react-native-select-dropdown';
 import DatePicker from 'react-native-date-picker';
@@ -56,38 +57,52 @@ export default function MovieDetailScreen(props) {
 
   return (
     <ScrollView>
-      <Box p={3}>
+      <Box p={3} bgColor="white">
         <Center>
           <Image
             source={require('../../assets/img/poster.png')}
             alt="img_poster"
           />
-          <Text fontSize="xl">{poster.name}</Text>
-          <Text>{poster.genre}</Text>
+          <Text fontSize="2xl" mt="2">
+            {poster.name}
+          </Text>
+          <Text fontSize="sm" mb="5">
+            {poster.genre}
+          </Text>
         </Center>
         <HStack justifyContent="space-between">
           <Box flex={1}>
-            <Text>Release Date</Text>
-            <Text>{poster.releaseDate}</Text>
-            <Text>Duration</Text>
-            <Text>{poster.duration}</Text>
+            <Text fontSize="sm" color="gray.400">
+              Release Date
+            </Text>
+            <Text fontSize="md">{poster.releaseDate}</Text>
+            <Text fontSize="sm" color="gray.400" mt="3">
+              Duration
+            </Text>
+            <Text fontSize="md">{poster.duration}</Text>
           </Box>
           <Box flex={1}>
-            <Text>Directed By</Text>
-            <Text>{poster.director}</Text>
-            <Text>Cast</Text>
-            <Text>{poster.cast}</Text>
+            <Text fontSize="sm" color="gray.400">
+              Directed By
+            </Text>
+            <Text fontSize="md">{poster.director}</Text>
+            <Text fontSize="sm" color="gray.400" mt="3">
+              Cast
+            </Text>
+            <Text fontSize="md">{poster.cast}</Text>
           </Box>
         </HStack>
-        <Box style={{borderBottomColor: 'black', borderWidth: 0.5}} />
-        <Box>
-          <Text>Synopsis</Text>
-          <Text>{poster.synopsis}</Text>
+        <Divider w="90%" alignSelf="center" marginY="4" />
+        <Box mb="5">
+          <Text fontSize="md">Synopsis</Text>
+          <Text fontSize="sm" color="gray.400">
+            {poster.synopsis}
+          </Text>
         </Box>
       </Box>
       <Box bg="#d6d8e7" p={3}>
         <Center>
-          <Text>Showtimes and Tickets</Text>
+          <Text fontSize="2xl">Showtimes and Tickets</Text>
           {/* <SelectDropdown
             data={city}
             onSelect={(selectedItem, index) => {
@@ -145,7 +160,7 @@ export default function MovieDetailScreen(props) {
             <CardSchedule {...props} />
             <CardSchedule {...props} />
           </VStack>
-          <Text>Show More</Text>
+          <Text style={{color: 'purple', marginVertical: 19}}>View More</Text>
         </Center>
       </Box>
       <Box>

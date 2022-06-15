@@ -120,18 +120,18 @@ function LoginScreen(props) {
         />
       </View>
       <Btn text="Sign In" onPress={handleLogin} />
-      <Text>
-        Forgot your password?
+      <View flexDirection="row">
+        <Text>Forgot your password?</Text>
         <TouchableOpacity onPress={handleRegister} style={{paddingStart: 5}}>
-          <Text>Reset Now</Text>
+          <Text style={styles.textLink}>Reset Now</Text>
         </TouchableOpacity>
-      </Text>
-      <Text>
-        Don't have a account?
+      </View>
+      <View flexDirection="row">
+        <Text>Don't have a account?</Text>
         <TouchableOpacity onPress={handleRegister} style={{paddingStart: 5}}>
-          <Text>Sign Up</Text>
+          <Text style={styles.textLink}>Sign Up</Text>
         </TouchableOpacity>
-      </Text>
+      </View>
     </SafeAreaView>
   );
 }

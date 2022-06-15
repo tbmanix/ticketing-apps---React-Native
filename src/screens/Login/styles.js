@@ -18,4 +18,7 @@ export default StyleSheet.create({
     backgroundColor: 'blue',
     width: '50%',
   },
+  textLink: {
+    color: '#5f2eea',
+  },
 });
