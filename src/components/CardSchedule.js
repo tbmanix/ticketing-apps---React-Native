@@ -10,6 +10,8 @@ export default function CardSchedule(props) {
         <Image
           source={require('../assets/img/ebvsponsor.png')}
           alt="img_sponsor"
+          w={20}
+          resizeMode="contain"
         />
         <Text>Whatever street No.12, South Purwokerto</Text>
         <Box style={{borderBottomColor: 'black', borderWidth: 0.5}} />
@@ -17,16 +19,32 @@ export default function CardSchedule(props) {
       <HStack
         flexWrap="wrap"
         flexDirection="row"
-        justifyContent="space-between"
+        justifyContent="space-evenly"
         // space={1}
+        paddingY={5}
         mt="4"
         borderWidth={1}>
-        <Button mt="2">08.03.pm</Button>
-        <Button mt="2">08.03.pm</Button>
-        <Button mt="2">08.03.pm</Button>
-        <Button mt="2">08.03.pm</Button>
-        <Button mt="2">08.03.pm</Button>
-        <Button mt="2">08.03.pm</Button>
+        <Button size="xs" mt="2">
+          08.03.pm
+        </Button>
+        <Button size="xs" mt="2">
+          08.03.pm
+        </Button>
+        <Button size="xs" mt="2">
+          08.03.pm
+        </Button>
+        <Button size="xs" mt="2">
+          08.03.pm
+        </Button>
+        <Button size="xs" mt="2">
+          08.03.pm
+        </Button>
+        <Button size="xs" mt="2">
+          08.03.pm
+        </Button>
+        <Button size="xs" mt="2">
+          08.03.pm
+        </Button>
       </HStack>
       <HStack justifyContent="space-between">
         <Text>Price</Text>

@@ -13,6 +13,8 @@ import Header from '../components/Header';
 import DrawerContent from '../components/DrawerContent';
 import SeatScreen from '../screens/Order';
 import PaymentScreen from '../screens/Payment';
+import ProfileScreen from '../screens/Profile';
+import TicketResultScreen from '../screens/TicketResult';
 
 function HomeNavigator() {
   return (
@@ -50,8 +52,13 @@ function ProfileNavigator() {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        // component={HomeScreen}
+        component={ProfileScreen}
         name="Profile"
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        component={TicketResultScreen}
+        name="TicketResult"
         options={{headerShown: false}}
       />
     </Stack.Navigator>

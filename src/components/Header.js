@@ -12,7 +12,7 @@ export default function Header(props) {
         <Text>TICKITZ</Text>
       </View>
       <TouchableOpacity onPress={openDrawer}>
-        <Text>MENU</Text>
+        <Icon name="menu" size={25} />
       </TouchableOpacity>
     </View>
   );

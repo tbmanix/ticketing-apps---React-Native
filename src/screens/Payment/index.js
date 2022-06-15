@@ -28,10 +28,11 @@ import {
 } from 'native-base';
 
 import Seat from '../../components/Seat';
+import Footer from '../../components/Footer';
 
 export default function PaymentScreen(props) {
   return (
-    <ScrollView>
+    <ScrollView style={{backgroundColor: '#f5f6f8'}}>
       <Box
         flexDirection="row"
         justifyContent="space-between"
@@ -50,7 +51,7 @@ export default function PaymentScreen(props) {
           <Center>
             <HStack space={3}>
               <VStack flex={1} space={2}>
-                <Button>
+                <Button variant="outline">
                   <Image
                     source={require('../../assets/img/gpay.png')}
                     alt="img_sponsor"
@@ -58,7 +59,7 @@ export default function PaymentScreen(props) {
                     height={3}
                   />
                 </Button>
-                <Button>
+                <Button variant="outline">
                   <Image
                     source={require('../../assets/img/paypal.png')}
                     alt="img_sponsor"
@@ -68,7 +69,7 @@ export default function PaymentScreen(props) {
                 </Button>
               </VStack>
               <VStack flex={1} space={2}>
-                <Button>
+                <Button variant="outline">
                   <Image
                     source={require('../../assets/img/visa.png')}
                     alt="img_sponsor"
@@ -76,7 +77,7 @@ export default function PaymentScreen(props) {
                     height={3}
                   />
                 </Button>
-                <Button>
+                <Button variant="outline">
                   <Image
                     source={require('../../assets/img/ovo.png')}
                     alt="img_sponsor"
@@ -86,7 +87,7 @@ export default function PaymentScreen(props) {
                 </Button>
               </VStack>
               <VStack flex={1} space={2}>
-                <Button>
+                <Button variant="outline">
                   <Image
                     source={require('../../assets/img/gopay.png')}
                     alt="img_sponsor"
@@ -94,7 +95,7 @@ export default function PaymentScreen(props) {
                     height={3}
                   />
                 </Button>
-                <Button>
+                <Button variant="outline">
                   <Image
                     source={require('../../assets/img/dana.png')}
                     alt="img_sponsor"
@@ -127,7 +128,7 @@ export default function PaymentScreen(props) {
               variant="solid"
               //   colorScheme="yellow"
               status="warning"
-              mt={2}>
+              mt={5}>
               <VStack space={2} flexShrink={1} w="100%">
                 <HStack
                   flexShrink={1}
@@ -143,6 +144,9 @@ export default function PaymentScreen(props) {
             </Alert>
           </FormControl>
         </Box>
+      </Box>
+      <Box>
+        <Footer {...props} />
       </Box>
     </ScrollView>
   );

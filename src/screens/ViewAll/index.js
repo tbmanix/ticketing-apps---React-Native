@@ -12,6 +12,7 @@ import {
 
 import style from './styles';
 import CardPoster from '../../components/CardPoster';
+import Footer from '../../components/Footer';
 
 export default function ViewAllScreen(props) {
   const poster = [
@@ -96,6 +97,9 @@ export default function ViewAllScreen(props) {
             </TouchableOpacity>
           ))}
         </View>
+      </View>
+      <View>
+        <Footer {...props} />
       </View>
     </ScrollView>
   );

@@ -24,6 +24,7 @@ import {
 } from 'native-base';
 
 import Seat from '../../components/Seat';
+import Footer from '../../components/Footer';
 
 export default function SeatScreen(props) {
   const poster = {
@@ -92,6 +93,8 @@ export default function SeatScreen(props) {
             <Image
               source={require('../../assets/img/ebvsponsor.png')}
               alt="img_Sponsor"
+              w={20}
+              resizeMode="contain"
             />
             <Text>Cineone21 Cinema</Text>
             <Text>Spider-Man: HomeComing</Text>
@@ -119,6 +122,9 @@ export default function SeatScreen(props) {
           onPress={() => props.navigation.navigate('Payment')}>
           Checkout Now
         </Button>
+      </Box>
+      <Box>
+        <Footer {...props} />
       </Box>
     </ScrollView>
   );

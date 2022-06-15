@@ -183,7 +183,7 @@ export default function HomeScreen(props) {
           updates via email .
         </Text>
       </View>
-      <View style={style.join}>
+      <View>
         <Footer {...props} />
       </View>
     </ScrollView>

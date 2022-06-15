@@ -114,7 +114,17 @@ export default function MovieDetailScreen(props) {
             setItems={setItems}
           />
 
-          <Button title="Open" onPress={() => setOpen(true)} />
+          <Button
+            w="100%"
+            onPress={() => setOpen(true)}
+            bgColor="white"
+            _text={{color: 'black'}}
+            borderWidth="1"
+            marginTop={2}
+            rounded="10"
+            padding="3">
+            Set Date
+          </Button>
           <DatePicker
             modal
             open={open}
@@ -128,7 +138,7 @@ export default function MovieDetailScreen(props) {
             }}
           />
           {/* <DatePicker date={date} onDateChange={setDate} /> */}
-          <VStack space={2}>
+          <VStack space={2} mt={5}>
             <CardSchedule {...props} />
             <CardSchedule {...props} />
             <CardSchedule {...props} />
@@ -138,8 +148,8 @@ export default function MovieDetailScreen(props) {
           <Text>Show More</Text>
         </Center>
       </Box>
-      <Box p={3}>
-        <Footer />
+      <Box>
+        <Footer {...props} />
       </Box>
     </ScrollView>
   );

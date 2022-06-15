@@ -2,10 +2,16 @@ import React from 'react';
 import {Box, HStack, Image, Text, VStack} from 'native-base';
 import Icon from 'react-native-vector-icons/Feather';
 import IconAnt from 'react-native-vector-icons/AntDesign';
+import {TouchableOpacity} from 'react-native';
 
-export default function Footer() {
+export default function Footer(props) {
   return (
-    <VStack space={5}>
+    <VStack
+      space={5}
+      marginTop="10"
+      bgColor="white"
+      paddingTop="5"
+      paddingX={3}>
       <Box>
         <Image source={require('../assets/img/Vector.png')} alt="img_logo" />
         <Text>
@@ -15,8 +21,17 @@ export default function Footer() {
       <Box>
         <Text>Explore</Text>
         <HStack>
-          <Text flex={1}>Home</Text>
-          <Text flex={2}>List movie</Text>
+          <Box flex={1}>
+            <TouchableOpacity onPress={() => props.navigation.navigate('Home')}>
+              <Text>Home</Text>
+            </TouchableOpacity>
+          </Box>
+          <Box flex={2}>
+            <TouchableOpacity
+              onPress={() => props.navigation.navigate('ViewAll')}>
+              <Text>List movie</Text>
+            </TouchableOpacity>
+          </Box>
         </HStack>
       </Box>
       <Box>
