@@ -72,7 +72,7 @@ function Seat(props) {
 
 const styles = StyleSheet.create({
   container: {
-    marginHorizontal: 7,
+    marginHorizontal: 3,
     marginVertical: 3,
     padding: 3,
     flexDirection: 'row',

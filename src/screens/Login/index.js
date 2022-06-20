@@ -94,8 +94,8 @@ function LoginScreen(props) {
       </TouchableOpacity> */}
 
       <Image
-        source={require('../../assets/img/Vector.svg')}
-        // style={{width: 60, height: 100, backgroundColor: 'blue'}}
+        source={require('../../assets/img/Vector.png')}
+        style={styles.logo}
       />
       <Text style={{color: 'black', fontSize: 40, fontWeight: 'bold'}}>
         Sign In
@@ -120,13 +120,13 @@ function LoginScreen(props) {
         />
       </View>
       <Btn text="Sign In" onPress={handleLogin} />
-      <View flexDirection="row">
+      <View flexDirection="row" justifyContent="center">
         <Text>Forgot your password?</Text>
         <TouchableOpacity onPress={handleRegister} style={{paddingStart: 5}}>
           <Text style={styles.textLink}>Reset Now</Text>
         </TouchableOpacity>
       </View>
-      <View flexDirection="row">
+      <View flexDirection="row" justifyContent="center">
         <Text>Don't have a account?</Text>
         <TouchableOpacity onPress={handleRegister} style={{paddingStart: 5}}>
           <Text style={styles.textLink}>Sign Up</Text>

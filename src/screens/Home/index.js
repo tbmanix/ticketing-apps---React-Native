@@ -41,7 +41,6 @@ export default function HomeScreen(props) {
       name: 'Dragon Ball',
       genre: 'Sci Fi, Action, Drama',
     },
-    ,
   ];
   const month = [
     'January',
@@ -163,7 +162,8 @@ export default function HomeScreen(props) {
                 _text={{
                   color: 'purple.600',
                 }}
-                borderColor="purple.600">
+                borderColor="purple.600"
+                onPress={() => props.navigation.navigate('MovieDetail')}>
                 Details
               </Button>
             </View>

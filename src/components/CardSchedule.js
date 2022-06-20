@@ -1,6 +1,13 @@
-import {Box, Center, Image, Button, HStack, Flex, Divider} from 'native-base';
+import {Box, Center, Image, HStack, Flex, Divider} from 'native-base';
 import React from 'react';
-import {Text, TouchableOpacity, View, StyleSheet} from 'react-native';
+import {
+  Text,
+  TouchableOpacity,
+  Button,
+  View,
+  StyleSheet,
+  FlatList,
+} from 'react-native';
 
 export default function CardSchedule(props) {
   //   console.log(props);
@@ -13,7 +20,7 @@ export default function CardSchedule(props) {
           w={20}
           resizeMode="contain"
         />
-        <Text>Whatever street No.12, South Purwokerto</Text>
+        <Text>{props.data.location}</Text>
         <Divider mt="4" />
       </Center>
       <HStack
@@ -22,38 +29,50 @@ export default function CardSchedule(props) {
         justifyContent="space-evenly"
         mt="4"
         h="120">
-        <Button variant="ghost" _text={{color: 'purple.600'}} size="sm" mt="2">
-          08.03.pm
-        </Button>
-        <Button variant="ghost" _text={{color: 'purple.600'}} size="sm" mt="2">
-          08.03.pm
-        </Button>
-        <Button variant="ghost" _text={{color: 'purple.600'}} size="sm" mt="2">
-          08.03.pm
-        </Button>
-        <Button variant="ghost" _text={{color: 'purple.600'}} size="sm" mt="2">
-          08.03.pm
-        </Button>
-        <Button variant="ghost" _text={{color: 'purple.600'}} size="sm" mt="2">
-          08.03.pm
-        </Button>
-        <Button variant="ghost" _text={{color: 'purple.600'}} size="sm" mt="2">
-          08.03.pm
-        </Button>
-        <Button variant="ghost" _text={{color: 'purple.600'}} size="sm" mt="2">
-          08.03.pm
-        </Button>
+        <FlatList
+          numColumns="5"
+          data={props.data.time}
+          keyExtractor={item => item}
+          renderItem={({item}) => (
+            // <Button
+            //   variant="ghost"
+            //   _text={{color: 'purple.600'}}
+            //   size="sm"
+            //   mt="2"
+            //   onPress={() =>
+            //     props.handleTime({timeBooking: item, scheduleId: props.data.id})
+            //   }>
+            //   {item}
+            // </Button>
+            <TouchableOpacity
+              onPress={() =>
+                props.handleTime({
+                  timeBooking: item,
+                  scheduleId: props.data.id,
+                  price: props.data.price,
+                })
+              }>
+              <Text>{item}</Text>
+            </TouchableOpacity>
+          )}
+        />
       </HStack>
+
       <HStack justifyContent="space-between">
         <Text style={style.textPriceTitle}>Price</Text>
-        <Text style={style.textPrice}>$10.00/seat</Text>
+        <Text style={style.textPrice}>{props.data.price}/seat</Text>
       </HStack>
       <Button
         mt="5"
-        onPress={() => props.navigation.navigate('Seat')}
-        bgColor="purple.600">
-        Book Now
-      </Button>
+        onPress={() =>
+          props.navigation.navigate('Seat', {dataOrder: props.dataOrder})
+        }
+        disabled={props.data.id === props.dataOrder.scheduleId ? false : true}
+        // bgColor="purple.600"
+        title="Book Now"
+      />
+      {/* Book Now
+      </Button> */}
     </Box>
   );
 }

@@ -39,8 +39,8 @@ function RegisterScreen(props) {
         // alignItems: 'center',
       }}>
       <Image
-        source={require('../../assets/img/Vector.svg')}
-        // style={{width: 60, height: 100, backgroundColor: 'blue'}}
+        source={require('../../assets/img/Vector.png')}
+        style={styles.logo}
       />
       <Text style={{color: 'black', fontSize: 40, fontWeight: 'bold'}}>
         Sign Up
@@ -52,17 +52,17 @@ function RegisterScreen(props) {
         <Input
           placeholder="input your First Name"
           label="First Name"
-          iconName="email-outline"
+          iconName="account-outline"
         />
         <Input
           placeholder="input your Last Name"
           label="Last Name"
-          iconName="email-outline"
+          iconName="account-outline"
         />
         <Input
           placeholder="input your Phone Number"
           label="Phone Number"
-          iconName="email-outline"
+          iconName="phone-outline"
         />
         <Input
           placeholder="input your email"

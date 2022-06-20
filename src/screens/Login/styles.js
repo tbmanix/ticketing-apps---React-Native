@@ -21,4 +21,9 @@ export default StyleSheet.create({
   textLink: {
     color: '#5f2eea',
   },
+  logo: {
+    width: '25%',
+    resizeMode: 'contain',
+    marginBottom: 10,
+  },
 });

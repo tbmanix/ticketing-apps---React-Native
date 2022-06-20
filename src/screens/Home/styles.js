@@ -7,7 +7,7 @@ export default StyleSheet.create({
     // padding: 10,
   },
   bannerText: {
-    padding: 10,
+    padding: 20,
     height: 130,
     backgroundColor: 'white',
     justifyContent: 'center',
@@ -24,7 +24,7 @@ export default StyleSheet.create({
   // nowShowing
   nowShowing: {
     backgroundColor: '#d6d8e7',
-    padding: 10,
+    padding: 20,
   },
 
   textMedium: {
@@ -54,7 +54,7 @@ export default StyleSheet.create({
   },
 
   card: {
-    padding: 10,
+    padding: 20,
     backgroundColor: 'white',
     maxWidth: 170,
     borderRadius: 10,
@@ -74,7 +74,7 @@ export default StyleSheet.create({
 
   // upComing
   upComing: {
-    padding: 10,
+    padding: 20,
     backgroundColor: 'white',
   },
   btnMonth: {
@@ -92,9 +92,13 @@ export default StyleSheet.create({
 
   // Join
   join: {
-    padding: 10,
+    padding: 50,
+    paddingHorizontal: 20,
     alignItems: 'center',
     backgroundColor: 'white',
     height: 400,
+  },
+  focusedButton: {
+    backgroundColor: 'purple',
   },
 });

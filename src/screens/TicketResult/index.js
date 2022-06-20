@@ -21,7 +21,7 @@ import style from './styles';
 export default function TicketResultScreen(props) {
   return (
     <ScrollView style={style.container}>
-      <Box bgColor="white" rounded="30" marginX={3} p="5" mt={5}>
+      <Box bgColor="white" rounded="30" marginX={5} p="5" mt={5}>
         <VStack space="5" alignItems="center" marginY="5" flex={1}>
           <Image source={require('../../assets/img/Qr.png')} alt="img_QRCode" />
         </VStack>
@@ -29,7 +29,7 @@ export default function TicketResultScreen(props) {
         <Box style={style.radiusRightBottom} />
       </Box>
       <Divider width="80%" alignSelf="center" />
-      <Box bgColor="white" rounded="30" marginX={3} p="5">
+      <Box bgColor="white" rounded="30" marginX={5} p="5">
         <Box style={style.radiusLeftTop} />
         <Box style={style.radiusRightTop} />
 

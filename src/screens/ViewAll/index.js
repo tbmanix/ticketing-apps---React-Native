@@ -1,5 +1,12 @@
-import React from 'react';
-import {ScrollView, Text, TouchableOpacity, View} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+  FlatList,
+  ActivityIndicator,
+} from 'react-native';
 import {
   Button,
   Select,
@@ -8,37 +15,39 @@ import {
   Input,
   Icon,
   Ionicons,
+  Center,
 } from 'native-base';
+import axios from '../../utils/axios';
 
 import style from './styles';
 import CardPoster from '../../components/CardPoster';
 import Footer from '../../components/Footer';
 
 export default function ViewAllScreen(props) {
-  const poster = [
-    {
-      img: '../../assets/img/poster.png',
-      name: 'Spiderman',
-      genre: 'Sci Fi, Action, Drama',
-    },
-    {
-      img: '../../assets/img/poster.png',
-      name: 'One Piece',
-      genre: 'Sci Fi, Action, Drama',
-    },
-    {
-      img: '../../assets/img/poster.png',
-      name: 'Bleach',
-      genre: 'Sci Fi, Action, Drama',
-    },
-    {
-      img: '../../assets/img/poster.png',
-      name: 'Dragon Ball',
-      genre: 'Sci Fi, Action, Drama',
-    },
-    ,
-  ];
-  const page = [1, 2, 3, 4, 5];
+  // const poster = [
+  //   {
+  //     img: '../../assets/img/poster.png',
+  //     name: 'Spiderman',
+  //     genre: 'Sci Fi, Action, Drama',
+  //   },
+  //   {
+  //     img: '../../assets/img/poster.png',
+  //     name: 'One Piece',
+  //     genre: 'Sci Fi, Action, Drama',
+  //   },
+  //   {
+  //     img: '../../assets/img/poster.png',
+  //     name: 'Bleach',
+  //     genre: 'Sci Fi, Action, Drama',
+  //   },
+  //   {
+  //     img: '../../assets/img/poster.png',
+  //     name: 'Dragon Ball',
+  //     genre: 'Sci Fi, Action, Drama',
+  //   },
+  //   ,
+  // ];
+  // const page = [1, 2, 3, 4, 5];
   const month = [
     'January',
     'February',
@@ -54,10 +63,75 @@ export default function ViewAllScreen(props) {
     'Desember',
   ];
   let [service, setService] = React.useState('');
-  console.log(service);
-  return (
-    <ScrollView>
-      <View style={{paddingBottom: 30}}>
+  const [data, setData] = useState([]);
+  const [page, setPage] = useState(1);
+  const [totalPage, setTotalPage] = useState(10);
+  const [refresh, setRefresh] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [last, setLast] = useState(false);
+  const [loadMore, setLoadMore] = useState(false);
+
+  useEffect(() => {
+    getDataMovie();
+  }, []);
+
+  useEffect(() => {
+    setTimeout(() => {
+      getDataMovie();
+    }, 2000);
+  }, [page]);
+
+  const getDataMovie = async () => {
+    try {
+      setRefresh(false);
+      setLoading(false);
+      setLoadMore(false);
+      if (page <= totalPage) {
+        const result = await axios.get(`movie?page=${page}&limit=5`);
+        if (page === 1) {
+          setData(result.data.data);
+        } else {
+          setData([...data, ...result.data.data]);
+        }
+        setTotalPage(result.data.pagination.totalPage);
+      } else {
+        setLast(true);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // console.log(data);
+
+  const handleRefresh = () => {
+    console.log('REFRESH SCREEN');
+    setPage(1);
+    setLast(false);
+    if (page !== 1) {
+      setRefresh(true);
+    } else {
+      getDataMovie();
+    }
+  };
+
+  const handleLoadMore = () => {
+    console.log('LOAD MORE DATA');
+    if (!loadMore) {
+      const newPage = page + 1;
+      setLoadMore(true);
+      if (newPage <= totalPage + 1) {
+        setLoading(true);
+        setPage(newPage);
+      } else {
+        setLoading(false);
+      }
+    }
+  };
+
+  const ListHeader = () => {
+    return (
+      <>
         <Text style={{padding: 10, fontSize: 18}}>List Movie</Text>
         <View style={style.listMovie}>
           <Select
@@ -85,24 +159,44 @@ export default function ViewAllScreen(props) {
             </TouchableOpacity>
           ))}
         </ScrollView>
-        <View style={style.containerPoster}>
-          {poster.map((item, index) => (
-            <View key={index}>
-              <CardPoster {...props} data={item} />
+      </>
+    );
+  };
+
+  // console.log(refresh);
+  console.log(page);
+  return (
+    // <ScrollView>
+    <View style={{paddingBottom: 30}}>
+      <FlatList
+        data={data}
+        numColumns="2"
+        ListHeaderComponent={ListHeader}
+        keyExtractor={item => item.id}
+        renderItem={({item}) => (
+          <View style={style.containerPoster}>
+            <CardPoster {...props} data={item} />
+          </View>
+        )}
+        onRefresh={handleRefresh}
+        refreshing={refresh}
+        onEndReached={handleLoadMore}
+        onEndReachedThreshold={0.1}
+        ListFooterComponent={() =>
+          last ? (
+            <View>
+              <Center>
+                <Text>-- No more data --</Text>
+              </Center>
+              <Footer {...props} />
             </View>
-          ))}
-        </View>
-        <View style={style.pagination}>
-          {page.map(item => (
-            <TouchableOpacity style={style.btnPaginate}>
-              <Text>{item}</Text>
-            </TouchableOpacity>
-          ))}
-        </View>
-      </View>
-      <View>
-        <Footer {...props} />
-      </View>
-    </ScrollView>
+          ) : loading ? (
+            <ActivityIndicator size="large" color="blue" />
+          ) : null
+        }
+      />
+    </View>
+
+    // </ScrollView>
   );
 }

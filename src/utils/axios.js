@@ -34,7 +34,8 @@ axiosApiIntances.interceptors.response.use(
     const refreshToken = await AsyncStorage.getItem('refreshToken');
     // Any status codes that falls outside the range of 2xx cause this function to trigger
     // Do something with response error
-    if (error.response === 403) {
+    //tambah.status
+    if (error.response.status === 403) {
       if (error.response.data.message === 'jwt expired') {
         axiosApiIntances
           .post('auth/refresh', {refreshToken})

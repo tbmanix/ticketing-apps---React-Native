@@ -21,30 +21,49 @@ import {
   HStack,
   TextArea,
   VStack,
+  Divider,
 } from 'native-base';
+import axios from '../../utils/axios';
+
+import IconFeather from 'react-native-vector-icons/Feather';
 
 import Seat from '../../components/Seat';
 import Footer from '../../components/Footer';
 
 export default function SeatScreen(props) {
-  const poster = {
-    img: '../../assets/img/poster.png',
-    name: 'Spiderman',
-    genre: 'Sci Fi, Action, Drama',
-    releaseDate: 'june 28, 2017',
-    duration: '2 hrs 13 min',
-    director: 'Jon Watts',
-    cast: 'Tom Holland, Zendaya, Robert Downey Jr.',
-    synopsis:
-      'Thrilled by his experience with the Avengers, Peter returns home, where he lives with his Aunt May, under the watchful eye of his new mentor Tony Stark, Peter tries to fall back into his normal daily routine - distracted by thoughts of proving himself to be more than just your friendly neighborhood Spider-Man - but when the Vulture emerges as a new villain, everything that Peter holds most important will be threatened. ',
-  };
+  // const poster = {
+  //   img: '../../assets/img/poster.png',
+  //   name: 'Spiderman',
+  //   genre: 'Sci Fi, Action, Drama',
+  //   releaseDate: 'june 28, 2017',
+  //   duration: '2 hrs 13 min',
+  //   director: 'Jon Watts',
+  //   cast: 'Tom Holland, Zendaya, Robert Downey Jr.',
+  //   synopsis:
+  //     'Thrilled by his experience with the Avengers, Peter returns home, where he lives with his Aunt May, under the watchful eye of his new mentor Tony Stark, Peter tries to fall back into his normal daily routine - distracted by thoughts of proving himself to be more than just your friendly neighborhood Spider-Man - but when the Vulture emerges as a new villain, everything that Peter holds most important will be threatened. ',
+  // };
   const listSeat = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
   const [selectedSeat, setSelectedSeat] = useState([]);
-  const [reservedSeat, setReservedSeat] = useState(['A1', 'C7']);
+  const [reservedSeat, setReservedSeat] = useState([]);
+  const [totalPayment, setTotalPayment] = useState(0);
+
+  const [dataOrder, setDataOrder] = useState(props.route.params.dataOrder);
 
   useEffect(() => {
-    console.log(props.route.params);
+    getSeatBooking();
   }, []);
+
+  const getSeatBooking = async () => {
+    try {
+      const result = await axios.get(
+        `booking/seat?scheduleId=${dataOrder.scheduleId}&dateBooking=${dataOrder.bookingDate}&timeBooking=${dataOrder.timeBooking}`,
+      );
+      setReservedSeat(result.data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  console.log(reservedSeat);
 
   const handleSelectedSeat = data => {
     if (selectedSeat.includes(data)) {
@@ -52,10 +71,14 @@ export default function SeatScreen(props) {
         return el !== data;
       });
       setSelectedSeat(deleteSeat);
+      setTotalPayment(totalPayment - dataOrder.price);
     } else {
       setSelectedSeat([...selectedSeat, data]);
+      setTotalPayment((selectedSeat.length + 1) * dataOrder.price);
     }
   };
+
+  console.log(dataOrder);
 
   const handleResetSeat = () => {
     setSelectedSeat([]);
@@ -67,28 +90,72 @@ export default function SeatScreen(props) {
 
   return (
     <ScrollView>
-      <Box marginX={3} marginY={5}>
+      <Box marginX={5} marginY={5}>
         <Text fontSize="xl" fontWeight="semibold">
           Choose Your Seat
+          {selectedSeat}
         </Text>
         <View style={styles.containerSeat}>
-          <FlatList
-            data={listSeat}
-            keyExtractor={item => item}
-            renderItem={({item}) => (
-              <Seat
-                seatAlphabhet={item}
-                reserved={reservedSeat}
-                selected={selectedSeat}
-                selectSeat={handleSelectedSeat}
+          <HStack h="240">
+            <Box h="70%" alignSelf="center">
+              <Divider
+                orientation="vertical"
+                width="1"
+                rounded="10"
+                bg="green.600"
               />
-            )}
-          />
+            </Box>
+            <Box flex={1}>
+              <Divider
+                w="90%"
+                h="2"
+                rounded="10"
+                bg="purple.600"
+                mb="3"
+                alignSelf="center"
+              />
+              <FlatList
+                data={listSeat}
+                keyExtractor={item => item}
+                renderItem={({item}) => (
+                  <Seat
+                    seatAlphabhet={item}
+                    reserved={reservedSeat}
+                    selected={selectedSeat}
+                    selectSeat={handleSelectedSeat}
+                  />
+                )}
+              />
+            </Box>
+          </HStack>
+          <Text fontSize="lg" fontWeight="semibold">
+            Seating Key
+          </Text>
+          <HStack space={2} mt="3">
+            <VStack space={2}>
+              <IconFeather name="arrow-down" size={20} />
+              <Box bgColor="#d6d8e7" width="6" height="6" rounded="5" />
+              <Box bgColor="#6e7191" width="6" height="6" rounded="5" />
+            </VStack>
+            <VStack space={2} flex={1}>
+              <Text>A - G</Text>
+              <Text>Available</Text>
+              <Text>Sold</Text>
+            </VStack>
+            <VStack space={2}>
+              <IconFeather name="arrow-right" size={20} />
+              <Box bgColor="#5f2eea" width="6" height="6" rounded="5" />
+            </VStack>
+            <VStack space={2} flex={1}>
+              <Text>1 - 14</Text>
+              <Text>Selected</Text>
+            </VStack>
+          </HStack>
         </View>
         {/* <Button onPress={handleBookingSeat}>Booking</Button>
         <Button onPress={handleResetSeat}>Reset</Button> */}
       </Box>
-      <Box marginX={3} marginY={5}>
+      <Box marginX={5} marginY={5}>
         <Text fontSize="xl" fontWeight="semibold">
           Order Info
         </Text>
@@ -106,10 +173,10 @@ export default function SeatScreen(props) {
           <VStack space={2} mt="4">
             <HStack justifyContent="space-between">
               <Text fontSize="sm" color="gray.400">
-                Tuesday, 07 July 2020
+                {dataOrder.bookingDate}
               </Text>
               <Text fontSize="sm" color="black">
-                02:00pm
+                {dataOrder.timeBooking}
               </Text>
             </HStack>
             <HStack justifyContent="space-between">
@@ -117,7 +184,7 @@ export default function SeatScreen(props) {
                 One ticket price
               </Text>
               <Text fontSize="sm" color="black">
-                $10
+                {dataOrder.price}
               </Text>
             </HStack>
             <HStack justifyContent="space-between">
@@ -125,7 +192,7 @@ export default function SeatScreen(props) {
                 Seat Choosed
               </Text>
               <Text fontSize="sm" color="black">
-                C4, C5, C6
+                {selectedSeat}
               </Text>
             </HStack>
             <Box borderWidth={0.2} marginY={3} />
@@ -134,7 +201,7 @@ export default function SeatScreen(props) {
                 Total Payment
               </Text>
               <Text fontSize="2xl" color="purple.600" fontWeight="semibold">
-                $30
+                Rp.{totalPayment}
               </Text>
             </HStack>
           </VStack>
@@ -163,6 +230,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 8,
     marginTop: 10,
-    padding: 10,
+    padding: 15,
   },
 });

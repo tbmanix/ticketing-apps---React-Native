@@ -11,7 +11,7 @@ export default function Footer(props) {
       // marginTop="10"
       bgColor="white"
       paddingTop="5"
-      paddingX={3}>
+      paddingX={5}>
       <Box>
         <Image source={require('../assets/img/Vector.png')} alt="img_logo" />
         <Text mt={3}>
@@ -42,21 +42,29 @@ export default function Footer(props) {
         </Text>
         <HStack space={3} alignItems="flex-end">
           <Image
-            flex={1}
+            // flex={0.5}
             source={require('../assets/img/ebvsponsor.png')}
             alt="img_sponsor"
             resizeMode="contain"
+            width="20"
+            height="10"
+            // bgColor="black"
           />
           <Image
-            flex={1}
+            // flex={0.5}
             source={require('../assets/img/cineonesponsor.png')}
             alt="img_sponsor"
             resizeMode="contain"
+            width="20"
+            height="10"
+            // bgColor="black"
           />
           <Image
-            flex={1}
+            // flex={0.5}
             source={require('../assets/img/hiflixspnsor.png')}
             alt="img_sponsor"
+            width="20"
+            height="10"
             resizeMode="contain"
           />
         </HStack>
@@ -66,10 +74,10 @@ export default function Footer(props) {
           Social Media
         </Text>
         <HStack space={10}>
-          <Icon name="facebook" size={25} />
-          <Icon name="instagram" size={25} />
-          <Icon name="twitter" size={25} />
-          <Icon name="youtube" size={25} />
+          <Icon name="facebook" size={20} />
+          <Icon name="instagram" size={20} />
+          <Icon name="twitter" size={20} />
+          <Icon name="youtube" size={20} />
         </HStack>
       </Box>
       <Box mb={3}>

@@ -1,3 +1,4 @@
+import {Image} from 'native-base';
 import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
@@ -9,9 +10,20 @@ export default function Header(props) {
   return (
     <View style={styles.container}>
       <View>
-        <Text>TICKITZ</Text>
+        <TouchableOpacity onPress={() => props.navigation.navigate('Home')}>
+          <Image
+            source={require('../assets/img/Vector.png')}
+            alt="img_logo"
+            w="20"
+            resizeMode="contain"
+          />
+        </TouchableOpacity>
       </View>
-      <TouchableOpacity onPress={openDrawer}>
+      <TouchableOpacity
+        onPress={openDrawer}
+        style={{
+          justifyContent: 'center',
+        }}>
         <Icon name="menu" size={25} />
       </TouchableOpacity>
     </View>
@@ -22,7 +34,8 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    padding: 20,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
     backgroundColor: 'white',
   },
 });

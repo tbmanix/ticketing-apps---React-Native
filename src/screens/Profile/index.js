@@ -20,14 +20,14 @@ import styles from './styles';
 
 const FirstRoute = props => (
   <ScrollView style={styles.container}>
-    <Box bgColor="white" rounded="10" marginX={3} p="5" marginTop={5}>
+    <Box bgColor="white" rounded="10" marginX={5} p="5" marginTop={5}>
       <Text fontSize="md" fontWeight="light">
         INFO
       </Text>
 
       <VStack space="4" alignItems="center" marginY="5">
         <Image
-          bgColor="black"
+          // bgColor="black"
           source={require('../../assets/img/Ava.png')}
           alt="img_ava"
           rounded="100"
@@ -44,7 +44,7 @@ const FirstRoute = props => (
         </Button>
       </VStack>
     </Box>
-    <Box marginX={3} marginTop={5}>
+    <Box marginX={5} marginTop={5}>
       <Text fontSize="xl" fontWeight="semibold">
         Account Settings
       </Text>
@@ -80,7 +80,7 @@ const FirstRoute = props => (
         Update Changes
       </Button>
     </Box>
-    <Box bgColor="white" rounded="10" marginX={3} p="5" marginTop={5}>
+    <Box bgColor="white" rounded="10" marginX={5} p="5" marginTop={5}>
       <Text fontSize="md" fontWeight="light">
         Account & Privacy
       </Text>
@@ -116,7 +116,7 @@ const FirstRoute = props => (
 const SecondRoute = props => (
   <ScrollView style={styles.container}>
     <VStack space={5}>
-      <Box bgColor="white" rounded="10" marginX={3} p="5" marginTop={5}>
+      <Box bgColor="white" rounded="10" marginX={5} p="5" marginTop={5}>
         <VStack space={3} mt="5">
           <Image
             source={require('../../assets/img/ebvsponsor.png')}
@@ -136,7 +136,7 @@ const SecondRoute = props => (
           </Button>
         </VStack>
       </Box>
-      <Box bgColor="white" rounded="10" marginX={3} p="5">
+      <Box bgColor="white" rounded="10" marginX={5} p="5">
         <VStack space={3} mt="5">
           <Image
             source={require('../../assets/img/ebvsponsor.png')}

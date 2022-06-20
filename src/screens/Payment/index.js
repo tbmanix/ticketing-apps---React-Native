@@ -38,7 +38,7 @@ export default function PaymentScreen(props) {
         justifyContent="space-between"
         alignItems="center"
         bgColor="white"
-        paddingX={3}
+        paddingX={5}
         paddingBottom={5}
         paddingTop={3}
         roundedBottom={20}>
@@ -49,7 +49,7 @@ export default function PaymentScreen(props) {
           $30.00
         </Text>
       </Box>
-      <Box marginX={3} marginTop={5}>
+      <Box marginX={5} marginTop={5}>
         <Text fontSize="xl" fontWeight="semibold">
           Payment Method
         </Text>
@@ -118,7 +118,7 @@ export default function PaymentScreen(props) {
           </Center>
         </Box>
       </Box>
-      <Box marginX={3} marginTop={5}>
+      <Box marginX={5} marginTop={5}>
         <Text fontSize="xl" fontWeight="semibold">
           Personal Info
         </Text>

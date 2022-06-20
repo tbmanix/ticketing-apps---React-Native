@@ -15,6 +15,8 @@ import SeatScreen from '../screens/Order';
 import PaymentScreen from '../screens/Payment';
 import ProfileScreen from '../screens/Profile';
 import TicketResultScreen from '../screens/TicketResult';
+import Counter from '../screens/Counter';
+import ListMovie from '../screens/ListMovie';
 
 function HomeNavigator() {
   return (
@@ -86,6 +88,28 @@ export default function AppNavgiator() {
         name="ProfileNavigator"
         options={{
           title: 'Profile',
+          header: props => <Header {...props} />,
+          drawerIcon: ({size, color}) => {
+            <Icon name="user" size={size} color={color} />;
+          },
+        }}
+      />
+      <Drawer.Screen
+        component={Counter}
+        name="Counter"
+        options={{
+          title: 'Counter',
+          header: props => <Header {...props} />,
+          drawerIcon: ({size, color}) => {
+            <Icon name="user" size={size} color={color} />;
+          },
+        }}
+      />
+      <Drawer.Screen
+        component={ListMovie}
+        name="ListMovie"
+        options={{
+          title: 'List',
           header: props => <Header {...props} />,
           drawerIcon: ({size, color}) => {
             <Icon name="user" size={size} color={color} />;

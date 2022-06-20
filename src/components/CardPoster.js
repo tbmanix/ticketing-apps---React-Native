@@ -19,7 +19,9 @@ export default function CardPoster(props) {
           color: 'purple.600',
         }}
         borderColor="purple.600"
-        onPress={() => props.navigation.navigate('MovieDetail')}>
+        onPress={() =>
+          props.navigation.navigate('MovieDetail', {detailMovie: props.data})
+        }>
         Details
       </Button>
     </View>
