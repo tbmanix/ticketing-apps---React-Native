@@ -65,12 +65,12 @@ export default function MovieDetailScreen(props) {
       const result = await axios.get(
         `schedule/?page=${page}&limit=90&sort=name ASC&searchMovieId=${dataDetail.id}&searchLocation=${location}`,
       );
-      const userId = await AsyncStorage.getItem('token');
+      const userId = await AsyncStorage.getItem('id');
       setData(result.data.data);
       setDataOrder({
         userId: userId,
         movieId: dataDetail.id,
-        bookingDate: new Date().toISOString().split('T')[0],
+        dateBooking: new Date().toISOString().split('T')[0],
         name: dataDetail.name,
       });
     } catch (error) {
@@ -79,7 +79,7 @@ export default function MovieDetailScreen(props) {
   };
 
   const handleBookingDate = e => {
-    setDataOrder({...dataOrder, bookingDate: e.toISOString().split('T')[0]});
+    setDataOrder({...dataOrder, dateBooking: e.toISOString().split('T')[0]});
     // console.log(e);
   };
 

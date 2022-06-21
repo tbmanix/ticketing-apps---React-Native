@@ -56,7 +56,7 @@ export default function SeatScreen(props) {
   const getSeatBooking = async () => {
     try {
       const result = await axios.get(
-        `booking/seat?scheduleId=${dataOrder.scheduleId}&dateBooking=${dataOrder.bookingDate}&timeBooking=${dataOrder.timeBooking}`,
+        `booking/seat?scheduleId=${dataOrder.scheduleId}&dateBooking=${dataOrder.dateBooking}&timeBooking=${dataOrder.timeBooking}`,
       );
       setReservedSeat(result.data.data);
     } catch (error) {
@@ -173,7 +173,7 @@ export default function SeatScreen(props) {
           <VStack space={2} mt="4">
             <HStack justifyContent="space-between">
               <Text fontSize="sm" color="gray.400">
-                {dataOrder.bookingDate}
+                {dataOrder.dateBooking}
               </Text>
               <Text fontSize="sm" color="black">
                 {dataOrder.timeBooking}
@@ -210,7 +210,15 @@ export default function SeatScreen(props) {
           rounded={10}
           bgColor="#5f2eea"
           marginY={6}
-          onPress={() => props.navigation.navigate('Payment')}>
+          onPress={() =>
+            props.navigation.navigate('Payment', {
+              dataOrder: {
+                ...dataOrder,
+                seat: selectedSeat,
+                totalPayment: totalPayment,
+              },
+            })
+          }>
           Checkout Now
         </Button>
       </Box>

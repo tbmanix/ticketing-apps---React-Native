@@ -17,6 +17,7 @@ import ProfileScreen from '../screens/Profile';
 import TicketResultScreen from '../screens/TicketResult';
 import Counter from '../screens/Counter';
 import ListMovie from '../screens/ListMovie';
+import Midtrans from '../screens/Midtrans';
 
 function HomeNavigator() {
   return (
@@ -44,6 +45,11 @@ function HomeNavigator() {
       <Stack.Screen
         component={PaymentScreen}
         name="Payment"
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        component={Midtrans}
+        name="Midtrans"
         options={{headerShown: false}}
       />
     </Stack.Navigator>

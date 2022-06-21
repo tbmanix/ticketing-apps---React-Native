@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import axios from '../../utils/axios';
 import {
   ScrollView,
   TouchableOpacity,
@@ -31,6 +32,30 @@ import Seat from '../../components/Seat';
 import Footer from '../../components/Footer';
 
 export default function PaymentScreen(props) {
+  const [dataOrder, setDataOrder] = useState({
+    ...props.route.params.dataOrder,
+    paymentMethod: 'waiting',
+  });
+
+  console.log(dataOrder);
+
+  const handlePayment = async e => {
+    try {
+      e.preventDefault();
+      delete dataOrder.name;
+      delete dataOrder.movieId;
+      delete dataOrder.price;
+      console.log(dataOrder);
+      const result = await axios.post('booking/', dataOrder);
+      console.log(result.data.data);
+      props.navigation.navigate('Midtrans', {
+        url: result.data.data.redirectUrl,
+      });
+    } catch (error) {
+      console.log(error.response.data);
+    }
+  };
+
   return (
     <ScrollView style={{backgroundColor: '#f5f6f8'}}>
       <Box
@@ -154,7 +179,11 @@ export default function PaymentScreen(props) {
             </Alert>
           </FormControl>
         </Box>
-        <Button bgColor="#5f2eea" rounded="10" marginY={6}>
+        <Button
+          bgColor="#5f2eea"
+          rounded="10"
+          marginY={6}
+          onPress={handlePayment}>
           Pay your order
         </Button>
       </Box>
