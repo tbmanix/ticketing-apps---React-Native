@@ -8,13 +8,14 @@ import {
   TextInput,
   Image,
 } from 'react-native';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from '../../utils/axios';
+import {useDispatch} from 'react-redux';
 
 import styles from './styles';
 import Input from '../../components/input';
 import Btn from '../../components/button';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import {getUserById} from '../../stores/actions/user';
 
 function LoginScreen(props) {
   // // console.log(props);
@@ -37,6 +38,8 @@ function LoginScreen(props) {
     password: '',
   });
 
+  const dispatch = useDispatch();
+
   const handleLogin = async () => {
     try {
       console.log(form);
@@ -45,7 +48,9 @@ function LoginScreen(props) {
       await AsyncStorage.setItem('token', result.data.data.token);
       await AsyncStorage.setItem('refreshToken', result.data.data.refreshToken);
       // console.log(result.data.data);
-      props.navigation.navigate('AppScreen', {
+      const dataUser = await dispatch(getUserById(result.data.data.id));
+      // console.log(dataUser);
+      await props.navigation.navigate('AppScreen', {
         screen: 'Home',
       });
     } catch (error) {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -42,19 +42,22 @@ export default function HomeScreen(props) {
       genre: 'Sci Fi, Action, Drama',
     },
   ];
-  const month = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'Desember',
+  const [month, setMonth] = useState(new Date().getMonth() + 2);
+  console.log(month);
+
+  const monthFilter = [
+    {name: 'January', value: 1},
+    {name: 'February', value: 2},
+    {name: 'March', value: 3},
+    {name: 'April', value: 4},
+    {name: 'May', value: 5},
+    {name: 'June', value: 6},
+    {name: 'July', value: 7},
+    {name: 'August', value: 8},
+    {name: 'September', value: 9},
+    {name: 'October', value: 10},
+    {name: 'November', value: 11},
+    {name: 'Desember', value: 12},
   ];
 
   return (
@@ -141,9 +144,19 @@ export default function HomeScreen(props) {
           </TouchableOpacity>
         </View>
         <ScrollView horizontal={true}>
-          {month.map(item => (
-            <TouchableOpacity style={style.btnMonth} key={item}>
-              <Text>{item}</Text>
+          {monthFilter.map(item => (
+            <TouchableOpacity
+              style={
+                item.value === month ? style.btnMonthActive : style.btnMonth
+              }
+              onPress={() => setMonth(item.value)}
+              key={item.value}>
+              <Text
+                style={
+                  item.value === month ? {color: 'white'} : {color: 'blue'}
+                }>
+                {item.name}
+              </Text>
             </TouchableOpacity>
           ))}
         </ScrollView>

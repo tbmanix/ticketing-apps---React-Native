@@ -24,30 +24,6 @@ import CardPoster from '../../components/CardPoster';
 import Footer from '../../components/Footer';
 
 export default function ViewAllScreen(props) {
-  // const poster = [
-  //   {
-  //     img: '../../assets/img/poster.png',
-  //     name: 'Spiderman',
-  //     genre: 'Sci Fi, Action, Drama',
-  //   },
-  //   {
-  //     img: '../../assets/img/poster.png',
-  //     name: 'One Piece',
-  //     genre: 'Sci Fi, Action, Drama',
-  //   },
-  //   {
-  //     img: '../../assets/img/poster.png',
-  //     name: 'Bleach',
-  //     genre: 'Sci Fi, Action, Drama',
-  //   },
-  //   {
-  //     img: '../../assets/img/poster.png',
-  //     name: 'Dragon Ball',
-  //     genre: 'Sci Fi, Action, Drama',
-  //   },
-  //   ,
-  // ];
-  // const page = [1, 2, 3, 4, 5];
   const month = [
     'January',
     'February',
@@ -83,17 +59,24 @@ export default function ViewAllScreen(props) {
 
   const getDataMovie = async () => {
     try {
+      console.log(page, totalPage);
       setRefresh(false);
       setLoading(false);
       setLoadMore(false);
       if (page <= totalPage) {
-        const result = await axios.get(`movie?page=${page}&limit=5`);
+        const result = await axios.get(`movie?page=${page}&limit=6`);
         if (page === 1) {
+          console.log(true);
           setData(result.data.data);
         } else {
+          console.log(false, result.data.data);
           setData([...data, ...result.data.data]);
         }
         setTotalPage(result.data.pagination.totalPage);
+        if (page === totalPage) {
+          setLast(true);
+        }
+        // setTotalPage(3);
       } else {
         setLast(true);
       }
@@ -102,7 +85,7 @@ export default function ViewAllScreen(props) {
     }
   };
 
-  // console.log(data);
+  console.log(data.length);
 
   const handleRefresh = () => {
     console.log('REFRESH SCREEN');
@@ -120,7 +103,7 @@ export default function ViewAllScreen(props) {
     if (!loadMore) {
       const newPage = page + 1;
       setLoadMore(true);
-      if (newPage <= totalPage + 1) {
+      if (newPage <= totalPage) {
         setLoading(true);
         setPage(newPage);
       } else {
@@ -163,8 +146,28 @@ export default function ViewAllScreen(props) {
     );
   };
 
+  const ListFooter = () => {
+    return (
+      <>
+        {/* {last ? (
+          <View>
+            <Center marginY="6">
+              <Text>-- No more data --</Text>
+            </Center>
+            <Footer {...props} />
+          </View>
+        ) : (
+          <TouchableOpacity onPress={handleLoadMore}>
+            <Text>Loadmore</Text>
+          </TouchableOpacity>
+        )}
+        {loading ? <ActivityIndicator size="large" color="blue" /> : null} */}
+      </>
+    );
+  };
+
   // console.log(refresh);
-  console.log(page);
+
   return (
     // <ScrollView>
     <View style={{paddingBottom: 30}}>
@@ -180,20 +183,9 @@ export default function ViewAllScreen(props) {
         )}
         onRefresh={handleRefresh}
         refreshing={refresh}
-        onEndReached={handleLoadMore}
-        onEndReachedThreshold={0.1}
-        ListFooterComponent={() =>
-          last ? (
-            <View>
-              <Center>
-                <Text>-- No more data --</Text>
-              </Center>
-              <Footer {...props} />
-            </View>
-          ) : loading ? (
-            <ActivityIndicator size="large" color="blue" />
-          ) : null
-        }
+        // onEndReached={handleLoadMore}
+        // onEndReachedThreshold={0.3}
+        ListFooterComponent={ListFooter}
       />
     </View>
 

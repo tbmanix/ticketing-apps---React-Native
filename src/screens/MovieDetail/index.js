@@ -42,7 +42,7 @@ export default function MovieDetailScreen(props) {
 
   const [data, setData] = useState([]);
   const [page, setPage] = useState(1);
-  const [location, SetLocation] = useState('');
+  const [location, setLocation] = useState('');
 
   const [dataOrder, setDataOrder] = useState({});
   const city = ['Tangerang', 'Jakarta', 'Bandung'];
@@ -59,6 +59,9 @@ export default function MovieDetailScreen(props) {
   useEffect(() => {
     getDataSchedule();
   }, []);
+  useEffect(() => {
+    getDataSchedule();
+  }, [location]);
 
   const getDataSchedule = async () => {
     try {
@@ -92,17 +95,20 @@ export default function MovieDetailScreen(props) {
     });
   };
 
-  console.log(dataOrder);
+  console.log(location);
 
   const [openDropdown, setOpenDropdown] = useState(false);
-  const [value, setValue] = useState(null);
+  // const [value, setValue] = useState(null);
   const [items, setItems] = useState([
+    {label: 'All', value: 'x'},
+    {label: 'Bogor', value: 'bogor'},
+    {label: 'Parung', value: 'parung'},
     {label: 'Tangerang', value: 'tangerang'},
     {label: 'Jakarta', value: 'jakarta'},
     {label: 'Bandung', value: 'Bandung'},
   ]);
 
-  // console.log(value);
+  console.log(location);
 
   const ListHeader = () => {
     return (
@@ -150,18 +156,38 @@ export default function MovieDetailScreen(props) {
             </Text>
           </Box>
         </Box>
-        <Box bg="#d6d8e7" p={5}>
+        <Box bg="#d6d8e7" p={5} zIndex="99">
           <Center>
             <Text fontSize="2xl">Showtimes and Tickets</Text>
 
-            <DropDownPicker
+            {/* <DropDownPicker
               open={openDropdown}
-              value={value}
+              value={location}
               items={items}
               setOpen={setOpenDropdown}
-              setValue={setValue}
+              setValue={SetLocation}
               setItems={setItems}
-            />
+              autoScroll={true}
+              zIndex={1000}
+            /> */}
+
+            <Select
+              bgColor="white"
+              selectedValue={location}
+              accessibilityLabel="Sort Location"
+              width="100%"
+              placeholder="Sort"
+              _selectedItem={{
+                bg: 'teal.600',
+                endIcon: <CheckIcon size={5} />,
+              }}
+              onValueChange={itemValue => setLocation(itemValue)}>
+              <Select.Item label="View All" value="" />
+              <Select.Item label="Tangerang" value="tangerang" />
+              <Select.Item label="Bogor" value="bogor" />
+              <Select.Item label="Parung" value="parung" />
+              <Select.Item label="Jakarta" value="jakarta" />
+            </Select>
 
             <Button
               w="100%"
@@ -202,13 +228,13 @@ export default function MovieDetailScreen(props) {
   };
 
   return (
-    <View style={{paddingBottom: 30}}>
+    <View style={{paddingBottom: 30, padding: 5}}>
       <FlatList
         data={data}
         ListHeaderComponent={ListHeader}
         keyExtractor={item => item.id}
         renderItem={({item}) => (
-          <VStack space={2} mt={5}>
+          <VStack space={5} mt={5}>
             <CardSchedule
               {...props}
               data={item}
@@ -221,18 +247,18 @@ export default function MovieDetailScreen(props) {
         // refreshing={refresh}
         // onEndReached={handleLoadMore}
         // onEndReachedThreshold={0.1}
-        // ListFooterComponent={() =>
-        //   last ? (
-        //     <View>
-        //       <Center>
-        //         <Text>-- No more data --</Text>
-        //       </Center>
-        //       <Footer {...props} />
-        //     </View>
-        //   ) : loading ? (
-        //     <ActivityIndicator size="large" color="blue" />
-        //   ) : null
-        // }
+        ListFooterComponent={() => (
+          <View>
+            <Center>
+              {data.length === 0 ? (
+                <Text>Not Found</Text>
+              ) : (
+                <Text>-- No more data --</Text>
+              )}
+            </Center>
+            <Footer {...props} />
+          </View>
+        )}
       />
     </View>
   );

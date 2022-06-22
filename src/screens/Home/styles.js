@@ -89,6 +89,18 @@ export default StyleSheet.create({
     borderColor: '#5f2eea',
     marginTop: 20,
   },
+  btnMonthActive: {
+    margin: 10,
+    borderRadius: 5,
+    borderWidth: 1,
+    width: 80,
+    padding: 4,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'blue',
+    borderColor: '#5f2eea',
+    marginTop: 20,
+  },
 
   // Join
   join: {

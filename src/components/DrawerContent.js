@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, Image} from 'react-native';
 import {
   DrawerContentScrollView,
   DrawerItem,
@@ -9,8 +9,11 @@ import {
 import Icon from 'react-native-vector-icons/Feather';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useSelector} from 'react-redux';
 
 function DrawerContent(props) {
+  const dataUser = useSelector(state => state.user.data[0]);
+  console.log(dataUser);
   const handleLogout = async () => {
     try {
       alert('Logout');
@@ -24,10 +27,17 @@ function DrawerContent(props) {
     <View style={styles.container}>
       <DrawerContentScrollView {...props}>
         <View style={styles.containerProfile}>
-          <View style={styles.avatar} />
+          <View>
+            <Image
+              style={styles.avatar}
+              source={{
+                uri: `https://res.cloudinary.com/dx8zjtlv8/image/upload/v1651042190/${dataUser.image}`,
+              }}
+            />
+          </View>
           <View style={styles.biodata}>
-            <Text style={styles.title}>Anonymous</Text>
-            <Text style={styles.caption}>@bagustea</Text>
+            <Text style={styles.title}>{dataUser.firstName}</Text>
+            <Text style={styles.caption}>{dataUser.email}</Text>
           </View>
         </View>
         <DrawerItemList {...props} />

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   SafeAreaView,
   View,
@@ -10,25 +10,45 @@ import {
   Image,
   ScrollView,
 } from 'react-native';
+import axios from '../../utils/axios';
+import {useDispatch} from 'react-redux';
 
 import styles from './styles';
 import Input from '../../components/input';
 import Btn from '../../components/button';
+import {register} from '../../stores/actions/auth';
 
 function RegisterScreen(props) {
-  const handleLogin = () => {
-    props.navigation.navigate('AppScreen', {
-      screen: 'Home',
-    });
+  const dispatch = useDispatch();
+  const [form, setForm] = useState({
+    firstName: '',
+    lastName: '',
+    noTelp: '',
+    email: '',
+    password: '',
+  });
+
+  const handleChangeForm = (text, name) => {
+    setForm({...form, [name]: text});
   };
 
-  const [text, onChangeText] = React.useState('');
-  const [number, onChangeNumber] = React.useState(null);
+  const handleRegister = async () => {
+    try {
+      await dispatch(register(form));
+      // console.log(form);
+      await props.navigation.navigate('Login');
+    } catch (error) {
+      console.log(error.response);
+    }
+  };
+
+  // const [text, onChangeText] = React.useState('');
+  // const [number, onChangeNumber] = React.useState(null);
 
   // dengan kelas yang sama
-  const handleRegister = () => {
-    props.navigation.navigate('Register');
-  };
+  // const handleRegister = () => {
+  //   props.navigation.navigate('Register');
+  // };
 
   return (
     <ScrollView
@@ -53,31 +73,36 @@ function RegisterScreen(props) {
           placeholder="input your First Name"
           label="First Name"
           iconName="account-outline"
+          onChangeText={text => handleChangeForm(text, 'firstName')}
         />
         <Input
           placeholder="input your Last Name"
           label="Last Name"
           iconName="account-outline"
+          onChangeText={text => handleChangeForm(text, 'lastName')}
         />
         <Input
           placeholder="input your Phone Number"
           label="Phone Number"
           iconName="phone-outline"
+          onChangeText={text => handleChangeForm(text, 'noTelp')}
         />
         <Input
           placeholder="input your email"
           label="Email"
           iconName="email-outline"
+          onChangeText={text => handleChangeForm(text, 'email')}
         />
         <Input
           placeholder="input your password"
           label="Password"
           iconName="key-outline"
+          onChangeText={text => handleChangeForm(text, 'password')}
           // secureTextEntry={true}
           password
         />
       </View>
-      <Btn text="Sign Up" onPress={handleLogin} />
+      <Btn text="Sign Up" onPress={handleRegister} />
     </ScrollView>
   );
 }

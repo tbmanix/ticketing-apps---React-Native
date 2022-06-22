@@ -3,15 +3,17 @@ import React from 'react';
 import {Text, TouchableOpacity, View, Image, StyleSheet} from 'react-native';
 
 export default function CardPoster(props) {
-  // console.log(props);
+  // console.log(props.data);
   return (
     <View style={style.card}>
       <Image
-        source={require('../assets/img/poster.png')}
+        source={{
+          uri: `https://res.cloudinary.com/dx8zjtlv8/image/upload/v1651042190/${props.data.image}`,
+        }}
         style={style.poster}
       />
       <Text style={style.textTitle}>{props.data.name}</Text>
-      <Text style={style.textGenre}>{props.data.genre}</Text>
+      <Text style={style.textGenre}>{props.data.category}</Text>
       <Button
         variant="outline"
         size="sm"
@@ -42,15 +44,19 @@ const style = StyleSheet.create({
     shadowOpacity: 0.8,
     shadowRadius: 2,
     elevation: 5,
+    height: 380,
+    justifyContent: 'space-between',
   },
   poster: {
     width: 140,
     borderRadius: 10,
+    height: 200,
   },
   textTitle: {
     // fontSize: '20',
     fontWeight: '600',
-    fontSize: 18,
+    fontSize: 15,
+    textAlign: 'center',
     color: 'black',
     letterSpacing: 1,
     marginVertical: 10,

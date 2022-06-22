@@ -12,13 +12,15 @@ import {
   HStack,
   Divider,
 } from 'native-base';
-import React from 'react';
+import React, {useState} from 'react';
 import {View, ScrollView, StyleSheet} from 'react-native';
 
 import Footer from '../../components/Footer';
 import style from './styles';
 
 export default function TicketResultScreen(props) {
+  const dataTicket = props.route.params.dataTicket;
+  console.log(dataTicket);
   return (
     <ScrollView style={style.container}>
       <Box bgColor="white" rounded="30" marginX={5} p="5" mt={5}>
@@ -45,7 +47,7 @@ export default function TicketResultScreen(props) {
                 fontWeight="semibold"
                 isTruncated
                 w="80%">
-                Spider-Man: Homecoming
+                {dataTicket.name}
               </Text>
             </Box>
             <Box>
@@ -58,7 +60,7 @@ export default function TicketResultScreen(props) {
                 fontWeight="semibold"
                 isTruncated
                 w="80%">
-                07 July 2020
+                {dataTicket.dateBooking}
               </Text>
             </Box>
             <Box>
@@ -71,7 +73,7 @@ export default function TicketResultScreen(props) {
                 fontWeight="semibold"
                 isTruncated
                 w="80%">
-                3 pcs
+                {dataTicket.totalTicket} pcs
               </Text>
             </Box>
           </VStack>
@@ -86,7 +88,7 @@ export default function TicketResultScreen(props) {
                 fontWeight="semibold"
                 isTruncated
                 w="80%">
-                Action, Drama, Superhero
+                {dataTicket.category}
               </Text>
             </Box>
             <Box>
@@ -99,7 +101,7 @@ export default function TicketResultScreen(props) {
                 fontWeight="semibold"
                 isTruncated
                 w="80%">
-                2:00pm
+                {dataTicket.timeBooking}
               </Text>
             </Box>
             <Box>
@@ -107,7 +109,7 @@ export default function TicketResultScreen(props) {
                 Seats
               </Text>
               <Text fontSize="md" color="black" fontWeight="semibold">
-                C4, C5, C6
+                {dataTicket.seat}
               </Text>
             </Box>
           </VStack>
@@ -125,7 +127,7 @@ export default function TicketResultScreen(props) {
             Total
           </Text>
           <Text fontSize="lg" color="black" fontWeight="semibold">
-            $30.00
+            Rp.{dataTicket.totalPayment}
           </Text>
         </Box>
       </Box>
