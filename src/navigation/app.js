@@ -18,6 +18,7 @@ import TicketResultScreen from '../screens/TicketResult';
 import Counter from '../screens/Counter';
 import ListMovie from '../screens/ListMovie';
 import Midtrans from '../screens/Midtrans';
+import NotificationScreen from '../screens/Notification';
 
 function HomeNavigator() {
   return (
@@ -116,6 +117,17 @@ export default function AppNavgiator() {
         name="ListMovie"
         options={{
           title: 'List',
+          header: props => <Header {...props} />,
+          drawerIcon: ({size, color}) => {
+            <Icon name="user" size={size} color={color} />;
+          },
+        }}
+      />
+      <Drawer.Screen
+        component={NotificationScreen}
+        name="Notification"
+        options={{
+          title: 'Notification',
           header: props => <Header {...props} />,
           drawerIcon: ({size, color}) => {
             <Icon name="user" size={size} color={color} />;

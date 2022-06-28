@@ -41,4 +41,14 @@ export default StyleSheet.create({
     alignItems: 'center',
     borderRadius: 1,
   },
+  btnMonthActive: {
+    backgroundColor: 'blue',
+    margin: 10,
+    borderRadius: 5,
+    borderWidth: 1,
+    width: 80,
+    padding: 4,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });

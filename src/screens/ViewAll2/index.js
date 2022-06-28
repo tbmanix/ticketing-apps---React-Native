@@ -54,7 +54,7 @@ export default function ViewAll2Screen(props) {
     'Desember',
   ];
   let [service, setService] = React.useState('');
-  console.log(service);
+  // console.log(service);
   return (
     <ScrollView>
       <View style={{paddingBottom: 30}}>

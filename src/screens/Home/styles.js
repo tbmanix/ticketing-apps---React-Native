@@ -76,6 +76,7 @@ export default StyleSheet.create({
   upComing: {
     padding: 20,
     backgroundColor: 'white',
+    alignItems: 'center',
   },
   btnMonth: {
     margin: 10,

@@ -68,7 +68,7 @@ export default function MovieDetail2Screen(props) {
     }
   };
 
-  console.log(data);
+  // console.log(data);
 
   const [openDropdown, setOpenDropdown] = useState(false);
   const [value, setValue] = useState(null);

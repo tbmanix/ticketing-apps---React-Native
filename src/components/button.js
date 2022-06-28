@@ -15,7 +15,13 @@ export default function Button(props) {
           marginVertical: 5,
           backgroundColor: '#5f2eea',
         }}>
-        <Text style={{color: 'white', textAlign: 'center'}}>{props.text}</Text>
+        {!props.loading ? (
+          <Text style={{color: 'white', textAlign: 'center'}}>
+            {props.text}
+          </Text>
+        ) : (
+          <View>{props.loading}</View>
+        )}
       </TouchableOpacity>
     </View>
   );

@@ -30,14 +30,16 @@ import {
 
 import Seat from '../../components/Seat';
 import Footer from '../../components/Footer';
+import {useSelector} from 'react-redux';
 
 export default function PaymentScreen(props) {
+  const dataUser = useSelector(state => state.user.data[0]);
   const [dataOrder, setDataOrder] = useState({
     ...props.route.params.dataOrder,
     paymentMethod: 'waiting',
   });
 
-  console.log(dataOrder);
+  // console.log(dataOrder);
 
   const handlePayment = async e => {
     try {
@@ -45,15 +47,22 @@ export default function PaymentScreen(props) {
       delete dataOrder.name;
       delete dataOrder.movieId;
       delete dataOrder.price;
-      console.log(dataOrder);
+      // console.log(dataOrder);
       const result = await axios.post('booking/', dataOrder);
-      console.log(result.data.data);
+      // console.log(result.data.data);
       props.navigation.navigate('Midtrans', {
         url: result.data.data.redirectUrl,
       });
     } catch (error) {
       console.log(error.response.data);
     }
+  };
+
+  const Rupiah = number => {
+    const format = number.toString().split('').reverse().join('');
+    const convert = format.match(/\d{1,3}/g);
+    const rupiah = 'Rp ' + convert.join('.').split('').reverse().join('');
+    return rupiah;
   };
 
   return (
@@ -71,7 +80,7 @@ export default function PaymentScreen(props) {
           Total Payment
         </Text>
         <Text fontSize="lg" color="black">
-          $30.00
+          {Rupiah(dataOrder.totalPayment)}
         </Text>
       </Box>
       <Box marginX={5} marginTop={5}>
@@ -150,13 +159,13 @@ export default function PaymentScreen(props) {
         <Box bgColor="white" rounded="xl" p={8} marginTop={3}>
           <FormControl>
             <FormControl.Label>Full Name</FormControl.Label>
-            <Input placeholder="Jonas El Rodriguez" />
+            <Input placeholder={dataUser.firstName} />
             <FormControl.Label>Email</FormControl.Label>
-            <Input placeholder="jonas@gmail.com" />
+            <Input placeholder={dataUser.email} />
             <FormControl.Label>Phone Number</FormControl.Label>
             <InputGroup w="100%">
               <InputLeftAddon children={'+62'} w="15%" />
-              <Input w="85%" placeholder="876543234567" />
+              <Input w="85%" placeholder={dataUser.noTelp} />
             </InputGroup>
             <Alert
               w="100%"

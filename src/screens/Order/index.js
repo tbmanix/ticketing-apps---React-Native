@@ -24,6 +24,7 @@ import {
   Divider,
 } from 'native-base';
 import axios from '../../utils/axios';
+import moment from 'moment';
 
 import IconFeather from 'react-native-vector-icons/Feather';
 
@@ -31,6 +32,7 @@ import Seat from '../../components/Seat';
 import Footer from '../../components/Footer';
 
 export default function SeatScreen(props) {
+  moment.locale('id');
   // const poster = {
   //   img: '../../assets/img/poster.png',
   //   name: 'Spiderman',
@@ -63,7 +65,7 @@ export default function SeatScreen(props) {
       console.log(error);
     }
   };
-  console.log(reservedSeat);
+  // console.log(reservedSeat);
 
   const handleSelectedSeat = data => {
     if (selectedSeat.includes(data)) {
@@ -78,14 +80,21 @@ export default function SeatScreen(props) {
     }
   };
 
-  console.log(dataOrder);
+  // console.log(dataOrder);
 
   const handleResetSeat = () => {
     setSelectedSeat([]);
   };
 
   const handleBookingSeat = () => {
-    console.log(selectedSeat);
+    // console.log(selectedSeat);
+  };
+
+  const Rupiah = number => {
+    const format = number.toString().split('').reverse().join('');
+    const convert = format.match(/\d{1,3}/g);
+    const rupiah = 'Rp ' + convert.join('.').split('').reverse().join('');
+    return rupiah;
   };
 
   return (
@@ -173,7 +182,7 @@ export default function SeatScreen(props) {
           <VStack space={2} mt="4">
             <HStack justifyContent="space-between">
               <Text fontSize="sm" color="gray.400">
-                {dataOrder.dateBooking}
+                {moment(dataOrder.dateBooking).format('dddd, MMMM Do YYYY')}
               </Text>
               <Text fontSize="sm" color="black">
                 {dataOrder.timeBooking}
@@ -184,7 +193,7 @@ export default function SeatScreen(props) {
                 One ticket price
               </Text>
               <Text fontSize="sm" color="black">
-                {dataOrder.price}
+                {Rupiah(dataOrder.price)}
               </Text>
             </HStack>
             <HStack justifyContent="space-between">
@@ -192,7 +201,7 @@ export default function SeatScreen(props) {
                 Seat Choosed
               </Text>
               <Text fontSize="sm" color="black">
-                {selectedSeat}
+                {selectedSeat.toString()}
               </Text>
             </HStack>
             <Box borderWidth={0.2} marginY={3} />
@@ -201,7 +210,7 @@ export default function SeatScreen(props) {
                 Total Payment
               </Text>
               <Text fontSize="2xl" color="purple.600" fontWeight="semibold">
-                Rp.{totalPayment}
+                {Rupiah(totalPayment)}
               </Text>
             </HStack>
           </VStack>

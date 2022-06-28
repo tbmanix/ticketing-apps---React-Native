@@ -9,6 +9,7 @@ import {
   TextInput,
   Image,
   ScrollView,
+  Alert,
 } from 'react-native';
 import axios from '../../utils/axios';
 import {useDispatch} from 'react-redux';
@@ -32,11 +33,36 @@ function RegisterScreen(props) {
     setForm({...form, [name]: text});
   };
 
+  const validationForm = () => {
+    if (
+      form.firstName === '' ||
+      form.lastName === '' ||
+      form.noTelp === '' ||
+      form.email === '' ||
+      form.password === ''
+    ) {
+      return true;
+    }
+  };
+
   const handleRegister = async () => {
     try {
+      if (validationForm() === true) {
+        return alert('Lengkapi Semua Data');
+      }
       await dispatch(register(form));
       // console.log(form);
-      await props.navigation.navigate('Login');
+
+      setTimeout(() => {
+        Alert.alert('Sucess Register', 'Go to Page Login', [
+          // The "Yes" button
+          {
+            text: 'Yes',
+            onPress: () => props.navigation.navigate('Login'),
+          },
+        ]);
+      }, 2000);
+      // await props.navigation.navigate('Login');
     } catch (error) {
       console.log(error.response);
     }
@@ -46,14 +72,13 @@ function RegisterScreen(props) {
   // const [number, onChangeNumber] = React.useState(null);
 
   // dengan kelas yang sama
-  // const handleRegister = () => {
-  //   props.navigation.navigate('Register');
-  // };
+  const handleLogin = () => {
+    props.navigation.navigate('Login');
+  };
 
   return (
     <ScrollView
       style={{
-        flex: 1,
         padding: 10,
         // justifyContent: 'center',
         // alignItems: 'center',
@@ -68,7 +93,7 @@ function RegisterScreen(props) {
       <Text>
         Sign in with your data that you entered during your registration
       </Text>
-      <View style={{marginVertical: 20}}>
+      <View style={{marginVertical: 10}}>
         <Input
           placeholder="input your First Name"
           label="First Name"
@@ -103,6 +128,12 @@ function RegisterScreen(props) {
         />
       </View>
       <Btn text="Sign Up" onPress={handleRegister} />
+      <View flexDirection="row" justifyContent="center">
+        <Text>Have an Account?</Text>
+        <TouchableOpacity onPress={handleLogin} style={{paddingStart: 5}}>
+          <Text style={styles.textLink}>Login</Text>
+        </TouchableOpacity>
+      </View>
     </ScrollView>
   );
 }

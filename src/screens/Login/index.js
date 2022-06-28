@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   TextInput,
   Image,
+  ActivityIndicator,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from '../../utils/axios';
@@ -27,6 +28,15 @@ function LoginScreen(props) {
 
   // const [text, onChangeText] = React.useState('');
   // const [number, onChangeNumber] = React.useState(null);
+  const [message, setMessage] = useState('');
+  const [isError, setIsError] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const validationForm = () => {
+    if (form.email === '' || form.password === '') {
+      return true;
+    }
+  };
 
   // dengan kelas yang sama
   const handleRegister = () => {
@@ -42,19 +52,29 @@ function LoginScreen(props) {
 
   const handleLogin = async () => {
     try {
-      console.log(form);
+      // console.log(form);
+      setLoading(true);
+      if (validationForm() === true) {
+        return alert('Lengkapi Semua Data'), setLoading(false);
+      }
       const result = await axios.post('auth/login', form);
       await AsyncStorage.setItem('id', result.data.data.id);
       await AsyncStorage.setItem('token', result.data.data.token);
       await AsyncStorage.setItem('refreshToken', result.data.data.refreshToken);
       // console.log(result.data.data);
+      setLoading(false);
+      setIsError(false);
+      setMessage(result.data.message);
       const dataUser = await dispatch(getUserById(result.data.data.id));
       // console.log(dataUser);
       await props.navigation.navigate('AppScreen', {
         screen: 'Home',
       });
     } catch (error) {
-      console.log(error);
+      setLoading(false);
+      console.log(error.response);
+      setIsError(true);
+      setMessage(error.response.data.message);
     }
   };
 
@@ -97,7 +117,6 @@ function LoginScreen(props) {
         }}>
         <Text style={{color: 'white'}}>Login</Text>
       </TouchableOpacity> */}
-
       <Image
         source={require('../../assets/img/Vector.png')}
         style={styles.logo}
@@ -109,6 +128,15 @@ function LoginScreen(props) {
         Sign in with your data that you entered during your registration
       </Text>
       <View style={{marginVertical: 20}}>
+        {!message ? null : isError ? (
+          <View>
+            <Text style={{color: 'red'}}>{message}</Text>
+          </View>
+        ) : (
+          <View>
+            <Text style={{color: 'green'}}>{message}</Text>
+          </View>
+        )}
         <Input
           placeholder="input your email"
           label="Email"
@@ -124,7 +152,14 @@ function LoginScreen(props) {
           password
         />
       </View>
-      <Btn text="Sign In" onPress={handleLogin} />
+      {loading ? (
+        <Btn
+          loading={<ActivityIndicator color="white" />}
+          onPress={handleLogin}
+        />
+      ) : (
+        <Btn text="Sign In" onPress={handleLogin} />
+      )}
       <View flexDirection="row" justifyContent="center">
         <Text>Forgot your password?</Text>
         <TouchableOpacity onPress={handleRegister} style={{paddingStart: 5}}>

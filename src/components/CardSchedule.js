@@ -1,5 +1,5 @@
-import {Box, Center, Image, HStack, Flex, Divider} from 'native-base';
-import React from 'react';
+import {Box, Center, Image, HStack, Flex, Divider, VStack} from 'native-base';
+import React, {useState} from 'react';
 import {
   Text,
   TouchableOpacity,
@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 
 export default function CardSchedule(props) {
+  const [time, setTime] = useState('');
   //   console.log(props);
   return (
     <Box bg="white" rounded="xl" p="5">
@@ -23,14 +24,16 @@ export default function CardSchedule(props) {
         <Text>{props.data.location}</Text>
         <Divider mt="4" />
       </Center>
-      <HStack
+      <VStack
         flexWrap="wrap"
-        flexDirection="row"
-        justifyContent="space-evenly"
+        // flexDirection="row"
+        // justifyContent="space-between"
         mt="4"
+        // w="100%"
         h="120">
+        {/* <Box bgColor="red.300" w="100%"> */}
         <FlatList
-          numColumns="5"
+          numColumns="4"
           data={props.data.time}
           keyExtractor={item => item}
           renderItem={({item}) => (
@@ -44,23 +47,38 @@ export default function CardSchedule(props) {
             //   }>
             //   {item}
             // </Button>
-            <TouchableOpacity
-              onPress={() =>
-                props.handleTime({
-                  timeBooking: item,
-                  scheduleId: props.data.id,
-                  price: props.data.price,
-                })
-              }>
-              <Text>{item}</Text>
-            </TouchableOpacity>
+            <Box marginX={5}>
+              <TouchableOpacity
+                onPress={() =>
+                  props.handleTime(
+                    {
+                      timeBooking: item,
+                      scheduleId: props.data.id,
+                      price: props.data.price,
+                    },
+                    setTime(item),
+                  )
+                }>
+                <Text
+                  style={
+                    time !== item
+                      ? {color: 'black', fontWeight: '500'}
+                      : {color: 'purple', fontWeight: '500'}
+                  }>
+                  {item}
+                </Text>
+              </TouchableOpacity>
+            </Box>
           )}
         />
-      </HStack>
+        {/* </Box> */}
+      </VStack>
 
       <HStack justifyContent="space-between">
         <Text style={style.textPriceTitle}>Price</Text>
-        <Text style={style.textPrice}>{props.data.price}/seat</Text>
+        <Text style={style.textPrice}>
+          {props.rupiah(props.data.price)}/seat
+        </Text>
       </HStack>
       <Button
         mt="5"

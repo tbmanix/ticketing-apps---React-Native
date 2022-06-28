@@ -13,7 +13,7 @@ import {useSelector} from 'react-redux';
 
 function DrawerContent(props) {
   const dataUser = useSelector(state => state.user.data[0]);
-  console.log(dataUser);
+  // console.log(dataUser);
   const handleLogout = async () => {
     try {
       alert('Logout');

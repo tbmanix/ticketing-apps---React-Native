@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   Text,
@@ -7,12 +7,16 @@ import {
   // Button,
   TouchableOpacity,
   TextInput,
+  FlatList,
+  ActivityIndicator,
 } from 'react-native';
-import {Button, Select} from 'native-base';
+import {Box, Button, Center, Select, VStack} from 'native-base';
+import axios from '../../utils/axios';
 
 import style from './styles';
 import Footer from '../../components/Footer';
 import Navbar from '../../components/navbar';
+import CardPoster from '../../components/CardPoster';
 
 export default function HomeScreen(props) {
   const poster = [
@@ -43,7 +47,51 @@ export default function HomeScreen(props) {
     },
   ];
   const [month, setMonth] = useState(new Date().getMonth() + 2);
-  console.log(month);
+  const [dataNowShowing, setDataNowShowing] = useState({});
+  const [dataUpComing, setDataUpComing] = useState({});
+  // console.log(month);
+
+  useEffect(() => {
+    getDataMovieNowShowing();
+    getDataMovieUpComing();
+  }, []);
+
+  useEffect(() => {
+    getDataMovieNowShowing();
+    getDataMovieUpComing();
+  }, [month]);
+
+  const getDataMovieNowShowing = async () => {
+    try {
+      // console.log(page, totalPage);
+      // setRefresh(false);
+      // setLoading(false);
+      // setLoadMore(false);
+      const result = await axios.get(
+        `movie?page=1&limit=10&searchReleaseDate=${new Date().getMonth() + 1}`,
+      );
+      setDataNowShowing(result.data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getDataMovieUpComing = async () => {
+    try {
+      // console.log(page, totalPage);
+      // setRefresh(false);
+      // setLoading(false);
+      // setLoadMore(false);
+      const result = await axios.get(
+        `movie?page=1&limit=10&searchReleaseDate=${month}`,
+      );
+      setDataUpComing(result.data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // console.log(dataNowShowing);
 
   const monthFilter = [
     {name: 'January', value: 1},
@@ -98,7 +146,7 @@ export default function HomeScreen(props) {
           </TouchableOpacity>
         </View>
         <ScrollView horizontal={true}>
-          {poster.map((item, index) => (
+          {/* {poster.map((item, index) => (
             <View style={style.card} key={index}>
               <Image
                 source={require('../../assets/img/poster.png')}
@@ -116,7 +164,19 @@ export default function HomeScreen(props) {
                 Details
               </Button>
             </View>
-          ))}
+          ))} */}
+          {dataUpComing.length === 0 ? (
+            <Text>Data Not Found</Text>
+          ) : (
+            <FlatList
+              horizontal={true}
+              // numColumns={columns}
+              data={dataNowShowing}
+              renderItem={({item}) => {
+                return <CardPoster {...props} data={item} />;
+              }}
+            />
+          )}
           {/* <View style={style.card}>
             <Image
               source={require('../../assets/img/poster.png')}
@@ -161,7 +221,7 @@ export default function HomeScreen(props) {
           ))}
         </ScrollView>
         <ScrollView horizontal={true}>
-          {poster.map((item, index) => (
+          {/* {poster.map((item, index) => (
             <View style={style.card} key={index}>
               <Image
                 source={require('../../assets/img/poster.png')}
@@ -180,7 +240,19 @@ export default function HomeScreen(props) {
                 Details
               </Button>
             </View>
-          ))}
+          ))} */}
+          {dataUpComing.length === 0 ? (
+            <Text>Data Not Found</Text>
+          ) : (
+            <FlatList
+              horizontal={true}
+              // numColumns={columns}
+              data={dataUpComing}
+              renderItem={({item}) => {
+                return <CardPoster {...props} data={item} />;
+              }}
+            />
+          )}
         </ScrollView>
       </View>
       <View style={style.join}>
