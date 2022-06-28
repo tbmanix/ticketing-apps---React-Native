@@ -27,3 +27,10 @@ export const updateAvatar = (id, data) => {
     payload: axios.patch(`user/image/${id}`, data),
   };
 };
+
+export const deleteAvatar = (id, data) => {
+  return {
+    type: 'DELETE_AVATAR_BY_ID',
+    payload: axios.patch(`user/delete-image/${id}`, data),
+  };
+};

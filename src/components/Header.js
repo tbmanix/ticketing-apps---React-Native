@@ -11,12 +11,13 @@ export default function Header(props) {
     <View style={styles.container}>
       <View>
         <TouchableOpacity onPress={() => props.navigation.navigate('Home')}>
-          <Image
+          {/* <Image
             source={require('../assets/img/Vector.png')}
             alt="img_logo"
             w="20"
             resizeMode="contain"
-          />
+          /> */}
+          <Text style={styles.logo}>Ticketing</Text>
         </TouchableOpacity>
       </View>
       <TouchableOpacity
@@ -37,5 +38,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 10,
     backgroundColor: 'white',
+  },
+  logo: {
+    fontSize: 30,
+    fontWeight: '900',
+    color: '#5f2eea',
   },
 });

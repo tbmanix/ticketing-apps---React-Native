@@ -16,7 +16,15 @@ export default function CardSchedule(props) {
     <Box bg="white" rounded="xl" p="5">
       <Center>
         <Image
-          source={require('../assets/img/ebvsponsor.png')}
+          source={
+            props.data.premiere === 'ebvid'
+              ? require('../assets/img/ebvsponsor.png')
+              : props.data.premiere === 'cineone'
+              ? require('../assets/img/cineonesponsor.png')
+              : props.data.premiere === 'hiflix'
+              ? require('../assets/img/hiflixspnsor.png')
+              : require('../assets/img/ebvsponsor.png')
+          }
           alt="img_sponsor"
           w={20}
           resizeMode="contain"

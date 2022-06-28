@@ -13,7 +13,16 @@ export default function Footer(props) {
       paddingTop="5"
       paddingX={5}>
       <Box>
-        <Image source={require('../assets/img/Vector.png')} alt="img_logo" />
+        {/* <Image source={require('../assets/img/Vector.png')} alt="img_logo" /> */}
+        <Text
+          style={{
+            fontSize: 30,
+            fontWeight: '900',
+            color: '#5f2eea',
+            paddingTop: 10,
+          }}>
+          Ticketing
+        </Text>
         <Text mt={3}>
           Stop waiting in line. Buy tickets conveniently, watch movies quietly.
         </Text>

@@ -102,7 +102,6 @@ export default function SeatScreen(props) {
       <Box marginX={5} marginY={5}>
         <Text fontSize="xl" fontWeight="semibold">
           Choose Your Seat
-          {selectedSeat}
         </Text>
         <View style={styles.containerSeat}>
           <HStack h="240">

@@ -31,15 +31,35 @@ import {
 import Seat from '../../components/Seat';
 import Footer from '../../components/Footer';
 import {useSelector} from 'react-redux';
+import Notification from '../../utils/notif';
 
 export default function PaymentScreen(props) {
   const dataUser = useSelector(state => state.user.data[0]);
+  const dataNotif = props.route.params.dataOrder;
   const [dataOrder, setDataOrder] = useState({
     ...props.route.params.dataOrder,
     paymentMethod: 'waiting',
   });
 
   // console.log(dataOrder);
+
+  const handleReminder = () => {
+    console.log('Clicked !');
+    // [without schedule]
+    // Notification.reminderProductNotification();
+
+    // [with schedule]
+    const setNotification = {
+      title: 'Status Booking',
+      message: `Success Booking ticket ${dataNotif.name}`,
+      date: new Date(Date.now() + 15 * 1000),
+    };
+    // const title = 'pro';
+    // const message = 'pro';
+    // const date = new Date(Date.now() + 5 * 1000);
+    // console.log(setNotification);
+    Notification.scheduleProductNotification(setNotification);
+  };
 
   const handlePayment = async e => {
     try {
@@ -50,6 +70,7 @@ export default function PaymentScreen(props) {
       // console.log(dataOrder);
       const result = await axios.post('booking/', dataOrder);
       // console.log(result.data.data);
+      handleReminder();
       props.navigation.navigate('Midtrans', {
         url: result.data.data.redirectUrl,
       });

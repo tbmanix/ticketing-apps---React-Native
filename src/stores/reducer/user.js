@@ -83,6 +83,31 @@ const user = (state = initialState, action) => {
         msg: action.payload.response.data,
       };
 
+    case 'DELETE_AVATAR_BY_ID_PENDING':
+      return {
+        ...state,
+        isError: false,
+        isLoading: true,
+      };
+
+    case 'DELETE_AVATAR_BY_ID_FULFILLED':
+      return {
+        ...state,
+        isLoading: false,
+        isError: false,
+        data: [{...state.data[0], ...action.payload.data.data}],
+        msg: action.payload.data.msg,
+      };
+
+    case 'DELETE_AVATAR_BY_ID_REJECTED':
+      return {
+        ...state,
+        isLoading: false,
+        isError: true,
+        pageInfo: {},
+        msg: action.payload.response.data,
+      };
+
     case 'PATCH_PASSWORD_BY_ID_PENDING':
       return {
         ...state,

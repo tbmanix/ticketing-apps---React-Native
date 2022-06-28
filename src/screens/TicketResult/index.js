@@ -15,6 +15,7 @@ import {
 } from 'native-base';
 import React, {useEffect, useRef, useState} from 'react';
 import {View, ScrollView, StyleSheet, Alert} from 'react-native';
+import QRCode from 'react-native-qrcode-svg';
 
 import Footer from '../../components/Footer';
 import axios from '../../utils/axios';
@@ -64,11 +65,12 @@ export default function TicketResultScreen(props) {
     <ScrollView style={style.container}>
       <Box bgColor="white" rounded="30" marginX={5} p="5" mt={5}>
         <VStack space="5" alignItems="center" marginY="5" flex={1}>
-          <Image
+          {/* <Image
             source={require('../../assets/img/Qr.png')}
             alt="img_QRCode"
             onPress={updateStatusTicket}
-          />
+          /> */}
+          <QRCode value={dataTicket.id} />
 
           <Button
             onPress={updateStatusTicket}

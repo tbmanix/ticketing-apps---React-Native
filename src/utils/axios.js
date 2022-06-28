@@ -1,10 +1,12 @@
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {baseURL} from '@env';
 
 const axiosApiIntances = axios.create({
   baseURL: 'https://ticketing-apps.herokuapp.com/',
-  //   baseURL: 'https://project-tickitz.herokuapp.com',
+  // baseURL: {baseURL},
 });
+// console.log(baseURL);
 
 // Add a request interceptor
 axiosApiIntances.interceptors.request.use(

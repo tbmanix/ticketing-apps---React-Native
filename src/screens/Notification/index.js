@@ -14,7 +14,10 @@ function NotificationScreen(props) {
       message: 'You can buy this product',
       date: new Date(Date.now() + 5 * 1000),
     };
-    console.log(setNotification);
+    // const title = 'pro';
+    // const message = 'pro';
+    // const date = new Date(Date.now() + 5 * 1000);
+    // console.log(setNotification);
     Notification.scheduleProductNotification(setNotification);
   };
   return (

@@ -31,7 +31,9 @@ function DrawerContent(props) {
             <Image
               style={styles.avatar}
               source={{
-                uri: `https://res.cloudinary.com/dx8zjtlv8/image/upload/v1651042190/${dataUser.image}`,
+                uri: dataUser.image
+                  ? `https://res.cloudinary.com/dx8zjtlv8/image/upload/v1655960622/${dataUser.image}`
+                  : 'https://res.cloudinary.com/dx8zjtlv8/image/upload/v1656424787/TICKETING/user/user1_kcsnxx.png',
               }}
             />
           </View>

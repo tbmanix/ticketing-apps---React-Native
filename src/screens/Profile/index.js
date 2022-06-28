@@ -34,148 +34,16 @@ import styles from './styles';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {getBookingById} from '../../stores/actions/booking';
 import {
+  deleteAvatar,
   updateAvatar,
   updatePassword,
   updateProfile,
 } from '../../stores/actions/user';
-
-const createFormData = (photo, body = {}) => {
-  const data = new FormData();
-
-  data.append('photo', {
-    name: photo.fileName,
-    type: photo.type,
-    uri: Platform.OS === 'ios' ? photo.uri.replace('file://', '') : photo.uri,
-  });
-
-  Object.keys(body).forEach(key => {
-    data.append(key, body[key]);
-  });
-
-  return data;
-};
+import moment from 'moment';
 
 export default function ProfileScreen(props) {
+  moment.locale('id');
   // const [filePath, setFilePath] = useState({});
-
-  // const requestCameraPermission = async () => {
-  //   if (Platform.OS === 'android') {
-  //     try {
-  //       const granted = await PermissionsAndroid.request(
-  //         PermissionsAndroid.PERMISSIONS.CAMERA,
-  //         {
-  //           title: 'Camera Permission',
-  //           message: 'App needs camera permission',
-  //         },
-  //       );
-  //       // If CAMERA Permission is granted
-  //       return granted === PermissionsAndroid.RESULTS.GRANTED;
-  //     } catch (err) {
-  //       console.warn(err);
-  //       return false;
-  //     }
-  //   } else {
-  //     return true;
-  //   }
-  // };
-
-  // const requestExternalWritePermission = async () => {
-  //   if (Platform.OS === 'android') {
-  //     try {
-  //       const granted = await PermissionsAndroid.request(
-  //         PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
-  //         {
-  //           title: 'External Storage Write Permission',
-  //           message: 'App needs write permission',
-  //         },
-  //       );
-  //       // If WRITE_EXTERNAL_STORAGE Permission is granted
-  //       return granted === PermissionsAndroid.RESULTS.GRANTED;
-  //     } catch (err) {
-  //       console.warn(err);
-  //       alert('Write permission err', err);
-  //     }
-  //     return false;
-  //   } else {
-  //     return true;
-  //   }
-  // };
-
-  // const captureImage = async type => {
-  //   let options = {
-  //     mediaType: type,
-  //     maxWidth: 300,
-  //     maxHeight: 550,
-  //     quality: 1,
-  //     videoQuality: 'low',
-  //     durationLimit: 30, //Video max duration in seconds
-  //     saveToPhotos: true,
-  //   };
-  //   let isCameraPermitted = await requestCameraPermission();
-  //   let isStoragePermitted = await requestExternalWritePermission();
-  //   if (isCameraPermitted && isStoragePermitted) {
-  //     launchCamera(options, response => {
-  //       console.log('Response = ', response);
-
-  //       if (response.didCancel) {
-  //         alert('User cancelled camera picker');
-  //         return;
-  //       } else if (response.errorCode == 'camera_unavailable') {
-  //         alert('Camera not available on device');
-  //         return;
-  //       } else if (response.errorCode == 'permission') {
-  //         alert('Permission not satisfied');
-  //         return;
-  //       } else if (response.errorCode == 'others') {
-  //         alert(response.errorMessage);
-  //         return;
-  //       }
-  //       console.log('base64 -> ', response.base64);
-  //       console.log('uri -> ', response.uri);
-  //       console.log('width -> ', response.width);
-  //       console.log('height -> ', response.height);
-  //       console.log('fileSize -> ', response.fileSize);
-  //       console.log('type -> ', response.type);
-  //       console.log('fileName -> ', response.fileName);
-  //       setFilePath(response);
-  //     });
-  //   }
-  // };
-
-  // const chooseFile = type => {
-  //   let options = {
-  //     mediaType: type,
-  //     maxWidth: 300,
-  //     maxHeight: 550,
-  //     quality: 1,
-  //   };
-  //   launchImageLibrary(options, response => {
-  //     console.log('Response = ', response.assets[0]);
-
-  //     if (response.didCancel) {
-  //       alert('User cancelled camera picker');
-  //       return;
-  //     } else if (response.errorCode == 'camera_unavailable') {
-  //       alert('Camera not available on device');
-  //       return;
-  //     } else if (response.errorCode == 'permission') {
-  //       alert('Permission not satisfied');
-  //       return;
-  //     } else if (response.errorCode == 'others') {
-  //       alert(response.errorMessage);
-  //       return;
-  //     }
-  //     console.log('base64 -> ', response.assets[0].base64);
-  //     console.log('uri -> ', response.assets[0].uri);
-  //     console.log('width -> ', response.assets[0].width);
-  //     console.log('height -> ', response.assets[0].height);
-  //     console.log('fileSize -> ', response.assets[0].fileSize);
-  //     console.log('type -> ', response.assets[0].type);
-  //     console.log('fileName -> ', response.assets[0].fileName);
-  //     setFilePath(response.assets[0]);
-  //     setPhoto(response.assets[0].uri);
-  //   });
-  // };
 
   const dispatch = useDispatch();
 
@@ -201,23 +69,6 @@ export default function ProfileScreen(props) {
   });
   // console.log(dataUser);
 
-  // const handlePicker = () => {
-  //   // console.log('edit');
-  //   ImagePicker.showImagePicker({}, response => {
-  //     console.log('Response = ', response);
-  //     if (response.didCancel) {
-  //       console.log('User cancelled image picker');
-  //     } else if (response.error) {
-  //       console.log('ImagePicker Error: ', response.error);
-  //     } else if (response.customButton) {
-  //       console.log('User tapped custom button: ', response.customButton);
-  //     } else {
-  //       setAvatar({uri: response.uri});
-  //       // here we can call a API to upload image on server
-  //     }
-  //   });
-  // };
-
   const [photo, setPhoto] = React.useState(null);
   const handleChoosePhoto = () => {
     launchImageLibrary({noData: true}, response => {
@@ -239,17 +90,17 @@ export default function ProfileScreen(props) {
         setPhoto(response.assets[0]);
       }
     });
-    onClose();
   };
-  const handleDeletePhoto = () => {
-    launchImageLibrary({noData: true}, response => {
-      // console.log(response);
-      if (response.didCancel) {
-        console.log('User cancelled image picker');
-      } else if (response) {
-        setPhoto(response.assets[0]);
-      }
-    });
+  const handleDeletePhoto = async () => {
+    try {
+      onClose();
+      const data = {image: null};
+      const result = await dispatch(deleteAvatar(dataUser.id, data));
+      alert(result.value.data.message);
+    } catch (error) {
+      console.log(error.response);
+      onClose();
+    }
   };
 
   // console.log(avatar);
@@ -281,37 +132,19 @@ export default function ProfileScreen(props) {
     }
   };
 
-  // const handleChoosePhoto = () => {
-  //   launchImageLibrary({noData: true}, response => {
-  //     // console.log(response);
-  //     if (response) {
-  //       setPhoto(response);
-  //     }
-  //   });
-  // };
-
-  // const handleUploadPhoto = () => {
-  //   fetch(`${SERVER_URL}/api/upload`, {
-  //     method: 'POST',
-  //     body: createFormData(photo, {userId: '123'}),
-  //   })
-  //     .then(response => response.json())
-  //     .then(response => {
-  //       console.log('response', response);
-  //     })
-  //     .catch(error => {
-  //       console.log('error', error);
-  //     });
-  // };
-
   useEffect(() => {
     getDataBookingById();
   }, []);
 
-  // const addImage = async () => {
-  //   const photo = await launchImageLibrary({});
-  //   setImage(photo.assets[0]);
-  // };
+  const handleLogout = async () => {
+    try {
+      alert('Logout');
+      await AsyncStorage.clear();
+      props.navigation.navigate('AuthScreen', {
+        screen: 'Login',
+      });
+    } catch (error) {}
+  };
 
   const handleRefresh = () => {
     console.log('REFRESH SCREEN');
@@ -371,14 +204,6 @@ export default function ProfileScreen(props) {
     }
   };
 
-  // const resetFormData = () => {
-  //   setFormData({
-  //     firstName: dataUser.firstName,
-  //     lastName: dataUser.lastName,
-  //     noTelp: dataUser.noTelp,
-  //   });
-  // };
-
   const resetFormPassword = () => {
     setFormPassword({
       newPassword: '',
@@ -403,10 +228,6 @@ export default function ProfileScreen(props) {
     {key: 'second', title: 'Order History'},
   ]);
 
-  // const renderScene = SceneMap({
-  //   first: () => <FirstRoute />,
-  //   second: () => <SecondRoute {...props} dataUser={data} />,
-  // });
   const renderTabBar = props => (
     <TabBar
       {...props}
@@ -428,53 +249,6 @@ export default function ProfileScreen(props) {
               </Text>
 
               <VStack space="4" alignItems="center" marginY="5">
-                {/* {photo ? (
-                  <>
-                    <Image
-                      source={{uri: photo.uri}}
-                      style={styles.imageStyle}
-                      height="100"
-                      width="100"
-                      alt="img_picker"
-                      resizeMode="cover"
-                      rounded="100"
-                    />
-                    <Button onPress={uploadFile}>Save</Button>
-                  </>
-                ) : (
-                  <View>
-                    <Image
-                      // bgColor="black"
-                      source={{
-                        uri: `https://res.cloudinary.com/dx8zjtlv8/image/upload/v1655960622/${avatar}`,
-                      }}
-                      alt="img_ava"
-                      rounded="100"
-                      width="100"
-                      height="100"
-                      resizeMode="cover"
-                      // width={30}
-                    />
-
-                    <Button
-                      onPress={handleChoosePhoto}
-                      variant="outline"
-                      marginY={2}>
-                      Edit Photo
-                    </Button>
-                    <Button
-                      onPress={() =>
-                        launchCamera(
-                          {mediaType: 'photo', maxHeight: 512, maxWidth: 512},
-                          // res => handleImage(res.assets[0]),
-                        )
-                      }
-                      variant="outline"
-                      marginY={2}>
-                      Camera
-                    </Button>
-                  </View>
-                )} */}
                 {photo ? (
                   <>
                     <Image
@@ -493,7 +267,9 @@ export default function ProfileScreen(props) {
                     <Image
                       // bgColor="black"
                       source={{
-                        uri: `https://res.cloudinary.com/dx8zjtlv8/image/upload/v1655960622/${dataUser.image}`,
+                        uri: dataUser.image
+                          ? `https://res.cloudinary.com/dx8zjtlv8/image/upload/v1655960622/${dataUser.image}`
+                          : 'https://res.cloudinary.com/dx8zjtlv8/image/upload/v1656424787/TICKETING/user/user1_kcsnxx.png',
                       }}
                       alt="img_ava"
                       rounded="100"
@@ -530,7 +306,7 @@ export default function ProfileScreen(props) {
                 </Text>
                 <Text fontSize="md">Moviegoers</Text>
                 <Divider />
-                <Button width="50%" bgColor="#5f2eea">
+                <Button width="50%" bgColor="#5f2eea" onPress={handleLogout}>
                   Logout
                 </Button>
               </VStack>
@@ -661,13 +437,25 @@ export default function ProfileScreen(props) {
                       marginTop={5}>
                       <VStack space={3} mt="5">
                         <Image
-                          source={require('../../assets/img/ebvsponsor.png')}
+                          source={
+                            // require('../../assets/img/hiflixspnsor.png')
+                            item.premiere === 'Ebu.id'
+                              ? require('../../assets/img/ebvsponsor.png')
+                              : item.premiere === 'cineone'
+                              ? require('../../assets/img/cineonesponsor.png')
+                              : item.premiere === 'hiflix'
+                              ? require('../../assets/img/hiflixspnsor.png')
+                              : require('../../assets/img/ebvsponsor.png')
+                          }
                           width="90"
                           resizeMode="contain"
                           alt="img_sponsor"
                         />
                         <Text fontSize="sm" color="gray.400">
-                          {item.dateBooking} {item.timeBooking}
+                          {moment(item.dateBooking).format(
+                            'dddd, MMMM Do YYYY',
+                          )}
+                          - {item.timeBooking}
                         </Text>
                         <Text fontSize="md" color="black" fontWeight="semibold">
                           {item.name}
@@ -700,170 +488,6 @@ export default function ProfileScreen(props) {
     }
   };
 
-  // const FirstRoute = () => {
-  //   return (
-  //     <>
-  //       <ScrollView style={styles.container}>
-  //         <Box bgColor="white" rounded="10" marginX={5} p="5" marginTop={5}>
-  //           <Text fontSize="md" fontWeight="light">
-  //             INFO
-  //           </Text>
-
-  //           <VStack space="4" alignItems="center" marginY="5">
-  //             <Image
-  //               // bgColor="black"
-  //               source={require('../../assets/img/Ava.png')}
-  //               alt="img_ava"
-  //               rounded="100"
-  //               resizeMode="cover"
-  //               // width={30}
-  //             />
-  //             <Text fontSize="2xl" fontWeight="bold">
-  //               {data.firstName + ' ' + data.lastName}
-  //             </Text>
-  //             <Text fontSize="md">Moviegoers</Text>
-  //             <Divider />
-  //             <Button width="50%" bgColor="#5f2eea">
-  //               Logout
-  //             </Button>
-  //           </VStack>
-  //         </Box>
-  //         <Box marginX={5} marginTop={5}>
-  //           <Text fontSize="xl" fontWeight="semibold">
-  //             Account Settings
-  //           </Text>
-  //           <Box bgColor="white" rounded="10" p="5">
-  //             <Text fontSize="md" fontWeight="light">
-  //               Details Information
-  //             </Text>
-  //             <Divider mt={2} />
-  //             <VStack space={3} mt="5">
-  //               <FormControl>
-  //                 <FormControl.Label>First Name</FormControl.Label>
-  //                 <Input
-  //                   placeholder={data.firstName + ' ' + data.lastName}
-  //                   // value={formData.firstName}
-  //                   onChangeText={text => handleChangeData(text, 'firstName')}
-  //                 />
-  //               </FormControl>
-  //               <FormControl>
-  //                 <FormControl.Label>Last Name</FormControl.Label>
-  //                 <Input
-  //                   value={data.lastName}
-  //                   onChangeText={text => handleChangeData(text, 'lastName')}
-  //                 />
-  //               </FormControl>
-  //               {/* <FormControl>
-  //             <FormControl.Label>E-mail</FormControl.Label>
-  //             <Input
-  //               value={data.email}
-  //               onChangeText={text => handleChangeData(text, 'email')}
-  //             />
-  //           </FormControl> */}
-  //               <FormControl>
-  //                 <FormControl.Label>Phone Number</FormControl.Label>
-  //                 <InputGroup w="100%">
-  //                   <InputLeftAddon children={'+62'} w="15%" />
-  //                   <Input
-  //                     w="85%"
-  //                     dataDetectorTypes="phoneNumber"
-  //                     value={data.noTelp}
-  //                     onChangeText={text => handleChangeData(text, 'noTelp')}
-  //                   />
-  //                 </InputGroup>
-  //               </FormControl>
-  //             </VStack>
-  //           </Box>
-  //           <Button
-  //             mt="5"
-  //             colorScheme="indigo"
-  //             rounded="7"
-  //             width="80%"
-  //             alignSelf="center">
-  //             Update Changes
-  //           </Button>
-  //         </Box>
-  //         <Box bgColor="white" rounded="10" marginX={5} p="5" marginTop={5}>
-  //           <Text fontSize="md" fontWeight="light">
-  //             Account & Privacy
-  //           </Text>
-  //           <Divider mt={2} />
-  //           <VStack space={3} mt="5">
-  //             <FormControl>
-  //               <FormControl.Label>New Password</FormControl.Label>
-  //               <Input placeholder="Input your new password" type="password" />
-  //             </FormControl>
-  //             <FormControl>
-  //               <FormControl.Label>Confirm</FormControl.Label>
-  //               <Input placeholder="input your new password" type="password" />
-  //             </FormControl>
-  //             {/* <Button mt="2" colorScheme="indigo" rounded="7">
-  //           Update Changes
-  //         </Button> */}
-  //           </VStack>
-  //         </Box>
-  //         <Button
-  //           mt="5"
-  //           colorScheme="indigo"
-  //           rounded="7"
-  //           width="80%"
-  //           alignSelf="center">
-  //           Update Changes
-  //         </Button>
-  //         <Box marginTop="10">
-  //           <Footer {...props} />
-  //         </Box>
-  //       </ScrollView>
-  //     </>
-  //   );
-  // };
-
-  // const SecondRoute = () => (
-  //   <View style={styles.container}>
-  //     <FlatList
-  //       data={dataBooking}
-  //       keyExtractor={item => item.id}
-  //       renderItem={({item}) => (
-  //         <VStack space={5}>
-  //           {item.statusPayment === 'SUCCESS' ? (
-  //             <Box bgColor="white" rounded="10" marginX={5} p="5" marginTop={5}>
-  //               <VStack space={3} mt="5">
-  //                 <Image
-  //                   source={require('../../assets/img/ebvsponsor.png')}
-  //                   width="90"
-  //                   resizeMode="contain"
-  //                   alt="img_sponsor"
-  //                 />
-  //                 <Text fontSize="sm" color="gray.400">
-  //                   {item.dateBooking} {item.timeBooking}
-  //                 </Text>
-  //                 <Text fontSize="md" color="black" fontWeight="semibold">
-  //                   {item.name}
-  //                 </Text>
-  //                 <Divider />
-  //                 {item.statusUsed === 'active' ? (
-  //                   <Button
-  //                     onPress={() =>
-  //                       props.navigation.navigate('TicketResult', {
-  //                         dataTicket: item,
-  //                       })
-  //                     }>
-  //                     Ticket in active
-  //                   </Button>
-  //                 ) : (
-  //                   <Button isDisabled>Ticket used</Button>
-  //                 )}
-  //               </VStack>
-  //             </Box>
-  //           ) : (
-  //             <View />
-  //           )}
-  //         </VStack>
-  //       )}
-  //     />
-  //   </View>
-  // );
-
   return (
     // <ScrollView>
     //   <Box>
@@ -888,51 +512,3 @@ export default function ProfileScreen(props) {
     />
   );
 }
-
-// const SecondRoute2 = () => (
-//   <ScrollView style={styles.container}>
-//     <VStack space={5}>
-//       <Box bgColor="white" rounded="10" marginX={5} p="5" marginTop={5}>
-//         <VStack space={3} mt="5">
-//           <Image
-//             source={require('../../assets/img/ebvsponsor.png')}
-//             width="90"
-//             resizeMode="contain"
-//             alt="img_sponsor"
-//           />
-//           <Text fontSize="sm" color="gray.400">
-//             Tuesday, 07 July 2020 - 04:30pm
-//           </Text>
-//           <Text fontSize="md" color="black" fontWeight="semibold">
-//             Spider-Man: Homecoming
-//           </Text>
-//           <Divider />
-//           <Button onPress={() => props.navigation.navigate('TicketResult')}>
-//             Ticket in active
-//           </Button>
-//         </VStack>
-//       </Box>
-//       <Box bgColor="white" rounded="10" marginX={5} p="5">
-//         <VStack space={3} mt="5">
-//           <Image
-//             source={require('../../assets/img/ebvsponsor.png')}
-//             width="90"
-//             resizeMode="contain"
-//             alt="img_sponsor"
-//           />
-//           <Text>Tuesday, 07 July 2020 - 04:30pm</Text>
-//           <Text>Spider-Man: Homecoming</Text>
-//           <Divider />
-//           <Button
-//             colorScheme="gray"
-//             onPress={() => props.navigation.navigate('TicketResult')}>
-//             Ticket Used
-//           </Button>
-//         </VStack>
-//       </Box>
-//     </VStack>
-//     <Box marginTop="10">
-//       <Footer {...props} />
-//     </Box>
-//   </ScrollView>
-// );
