@@ -10,9 +10,10 @@ import {
   Image,
   ScrollView,
   Alert,
+  ActivityIndicator,
 } from 'react-native';
 import axios from '../../utils/axios';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 
 import styles from './styles';
 import Input from '../../components/input';
@@ -21,6 +22,9 @@ import {register} from '../../stores/actions/auth';
 
 function RegisterScreen(props) {
   const dispatch = useDispatch();
+
+  const registerInfo = useSelector(state => state.auth);
+
   const [form, setForm] = useState({
     firstName: '',
     lastName: '',
@@ -54,17 +58,19 @@ function RegisterScreen(props) {
       // console.log(form);
 
       setTimeout(() => {
-        Alert.alert('Sucess Register', 'Go to Page Login', [
+        Alert.alert('Sucess Register Check ur Email', 'Go to Page Login', [
           // The "Yes" button
           {
             text: 'Yes',
             onPress: () => props.navigation.navigate('Login'),
           },
         ]);
-      }, 2000);
+      }, 1000);
       // await props.navigation.navigate('Login');
     } catch (error) {
-      console.log(error.response);
+      console.log(error.response.data);
+      const message = error.response.data.message;
+      alert(message);
     }
   };
 
@@ -83,10 +89,19 @@ function RegisterScreen(props) {
         // justifyContent: 'center',
         // alignItems: 'center',
       }}>
-      <Image
+      {/* <Image
         source={require('../../assets/img/Vector.png')}
         style={styles.logo}
-      />
+      /> */}
+      <Text
+        style={{
+          fontSize: 30,
+          fontWeight: '900',
+          color: '#5f2eea',
+          paddingTop: 10,
+        }}>
+        Ticketing
+      </Text>
       <Text style={{color: 'black', fontSize: 40, fontWeight: 'bold'}}>
         Sign Up
       </Text>
@@ -127,7 +142,16 @@ function RegisterScreen(props) {
           password
         />
       </View>
-      <Btn text="Sign Up" onPress={handleRegister} />
+      <Btn
+        text={
+          registerInfo.isLoading ? (
+            <ActivityIndicator color="white" />
+          ) : (
+            'Sign Up'
+          )
+        }
+        onPress={handleRegister}
+      />
       <View flexDirection="row" justifyContent="center">
         <Text>Have an Account?</Text>
         <TouchableOpacity onPress={handleLogin} style={{paddingStart: 5}}>

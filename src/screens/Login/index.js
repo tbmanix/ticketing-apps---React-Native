@@ -117,10 +117,19 @@ function LoginScreen(props) {
         }}>
         <Text style={{color: 'white'}}>Login</Text>
       </TouchableOpacity> */}
-      <Image
+      {/* <Image
         source={require('../../assets/img/Vector.png')}
         style={styles.logo}
-      />
+      /> */}
+      <Text
+        style={{
+          fontSize: 30,
+          fontWeight: '900',
+          color: '#5f2eea',
+          paddingTop: 10,
+        }}>
+        Ticketing
+      </Text>
       <Text style={{color: 'black', fontSize: 40, fontWeight: 'bold'}}>
         Sign In
       </Text>

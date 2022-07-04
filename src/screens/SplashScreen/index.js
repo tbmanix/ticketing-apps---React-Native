@@ -28,10 +28,19 @@ export default function SplashScreen(props) {
         alignItems: 'center',
       }}>
       {/* <Text>Splash Screen</Text> */}
-      <Image
+      {/* <Image
         source={require('../../assets/img/logo.png')}
         style={{width: 100, height: 40}}
-      />
+      /> */}
+      <Text
+        style={{
+          fontSize: 30,
+          fontWeight: '900',
+          color: '#ffff',
+          paddingTop: 10,
+        }}>
+        Ticketing
+      </Text>
     </View>
   );
 }

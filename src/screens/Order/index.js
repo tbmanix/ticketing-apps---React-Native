@@ -32,7 +32,7 @@ import Seat from '../../components/Seat';
 import Footer from '../../components/Footer';
 
 export default function SeatScreen(props) {
-  moment.locale('id');
+  // moment.locale('id');
   // const poster = {
   //   img: '../../assets/img/poster.png',
   //   name: 'Spiderman',
@@ -218,15 +218,18 @@ export default function SeatScreen(props) {
           rounded={10}
           bgColor="#5f2eea"
           marginY={6}
-          onPress={() =>
+          onPress={() => {
+            if (selectedSeat.length === 0) {
+              return alert('must select seat');
+            }
             props.navigation.navigate('Payment', {
               dataOrder: {
                 ...dataOrder,
                 seat: selectedSeat,
                 totalPayment: totalPayment,
               },
-            })
-          }>
+            });
+          }}>
           Checkout Now
         </Button>
       </Box>

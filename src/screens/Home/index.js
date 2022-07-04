@@ -165,7 +165,7 @@ export default function HomeScreen(props) {
               </Button>
             </View>
           ))} */}
-          {dataUpComing.length === 0 ? (
+          {dataNowShowing.length === 0 ? (
             <Text>Data Not Found</Text>
           ) : (
             <FlatList
@@ -193,6 +193,7 @@ export default function HomeScreen(props) {
           style={{
             flexDirection: 'row',
             justifyContent: 'space-between',
+            alignSelf: 'stretch',
           }}>
           <Text style={style.textMedium}>Upcoming Movies</Text>
           <TouchableOpacity style={style.textLink}>

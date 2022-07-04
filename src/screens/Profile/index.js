@@ -42,7 +42,7 @@ import {
 import moment from 'moment';
 
 export default function ProfileScreen(props) {
-  moment.locale('id');
+  // moment.locale('id');
   // const [filePath, setFilePath] = useState({});
 
   const dispatch = useDispatch();
